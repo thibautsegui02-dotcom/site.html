@@ -1,0 +1,294 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Confidentialité — La Loge de Léontine</title>
+	<meta name="description" content="Politique de confidentialité — La Loge de Léontine." />
+	<meta name="theme-color" content="#4E3B2A" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Cinzel:wght@500;600&display=swap" rel="stylesheet" />
+
+	<style>
+		/* ============================
+		   La Loge de Léontine — Confidentialité (Prestige)
+		   Repère : PRESTIGE_V5_2026-04-15
+		   ============================ */
+
+		:root{
+			--ecru:#F7F2EB;
+			--offwhite:#FAF8F5;
+			--beigeLight:#EEE4D8;
+			--beigeSand:#DCC9B6;
+			--linen:#D2BFA7;
+			--taupeSoft:#9C8572;
+			--woodLight:#B48E6A;
+			--woodMid:#8A6A4F;
+			--woodDeep:#5F4636;
+			--text:#2F2A26;
+			--text2:#6F6258;
+
+			--ink:var(--text);
+			--ink2:var(--text2);
+			--ivory:var(--offwhite);
+			--sand:var(--ecru);
+			--taupe:var(--beigeSand);
+			--muted:rgba(111,98,88,.78);
+
+			--stroke:rgba(95,70,54,.18);
+			--stroke2:rgba(95,70,54,.10);
+			--glass:rgba(250,248,245,.72);
+			--glass2:rgba(250,248,245,.56);
+
+			--container:1160px;
+			--gutter:24px;
+			--r:18px;
+			--r2:34px;
+
+			--shadow:0 32px 120px rgba(47,42,38,.22);
+			--shadowSoft:0 16px 55px rgba(47,42,38,.14);
+
+			--serif:"Cormorant Garamond","Playfair Display",serif;
+			--sans:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+			--accent:"Cinzel",serif;
+
+			--ease:cubic-bezier(.2,.8,.2,1);
+			--dur:.34s;
+		}
+
+		*{box-sizing:border-box}
+		html,body{height:100%}
+		body{
+			margin:0;
+			padding-top:74px;
+			font-family:var(--sans);
+			color:var(--ink);
+			background:
+				radial-gradient(1100px 640px at 18% -10%, rgba(180,142,106,.16), transparent 60%),
+				radial-gradient(980px 560px at 92% 8%, rgba(156,133,114,.20), transparent 62%),
+				radial-gradient(760px 420px at 55% 18%, rgba(250,248,245,.92), transparent 66%),
+				linear-gradient(180deg, var(--offwhite), var(--ecru) 56%, var(--beigeLight) 100%);
+			overflow-x:hidden;
+			text-rendering:optimizeLegibility;
+			-webkit-font-smoothing:antialiased;
+			-moz-osx-font-smoothing:grayscale;
+		}
+
+		body::before{
+			content:"";
+			position:fixed;inset:-35%;
+			background:
+				repeating-linear-gradient(90deg, rgba(78,59,42,.045) 0, rgba(78,59,42,.045) 1px, transparent 1px, transparent 12px),
+				repeating-linear-gradient(0deg, rgba(78,59,42,.030) 0, rgba(78,59,42,.030) 1px, transparent 1px, transparent 14px);
+			opacity:.14;
+			transform:rotate(-8deg);
+			pointer-events:none;
+			mix-blend-mode:multiply;
+		}
+
+		a{color:inherit}
+		.container{width:min(var(--container), calc(100% - (var(--gutter) * 2))); margin:0 auto}
+		:focus-visible{outline:2px solid rgba(198,169,107,.60);outline-offset:3px}
+		::selection{ background: rgba(180,142,106,.22); }
+
+		/* Topbar (banderole du haut) */
+		.topbar{position:fixed;top:0;left:0;right:0;z-index:60;backdrop-filter:blur(18px);background:rgba(250,248,245,.78);border-bottom:1px solid var(--stroke2)}
+		.nav{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 0}
+		.brand{display:flex;gap:12px;align-items:center;min-width:240px;text-decoration:none}
+		.logo{width:68px;height:68px;border-radius:50%;overflow:hidden;object-fit:cover;display:block;background:transparent}
+		.brand strong{font-family:var(--serif);font-size:18px;letter-spacing:.35px;line-height:1;font-weight:600}
+		.brand span{display:block;margin-top:4px;font-size:12px;letter-spacing:.10em;text-transform:uppercase;color:var(--taupe)}
+
+		.navlinks{display:flex;gap:18px;align-items:center}
+		.navlinks a{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:rgba(78,59,42,.82);padding:10px 10px;border-radius:12px;text-decoration:none;transition:background var(--dur) var(--ease), transform var(--dur) var(--ease), color var(--dur) var(--ease)}
+		.navlinks a:hover{background:rgba(198,169,107,.12); transform:translateY(-1px); color:rgba(78,59,42,1)}
+		.navlinks a[aria-current="page"]{background:rgba(198,169,107,.10);color:rgba(78,59,42,1)}
+
+		.burger{display:none;align-items:center;justify-content:center;width:46px;height:46px;border-radius:14px;background:rgba(250,248,245,.62);border:1px solid rgba(95,70,54,.12);box-shadow:0 16px 70px rgba(47,42,38,.10);cursor:pointer}
+		@media (max-width:920px){.navlinks{display:none}.burger{display:inline-flex}}
+		.mobileMenu{display:none;border-bottom:1px solid rgba(78,59,42,.12);background:rgba(250,248,244,.86);backdrop-filter: blur(16px)}
+		.pill{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border-radius:999px;border:1px solid rgba(95,70,54,.14);background:rgba(250,248,245,.72);cursor:pointer;font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:rgba(78,59,42,.86);text-decoration:none}
+
+		/* Page */
+		.hero{padding:54px 0 10px}
+		h1{font-family:var(--serif);font-weight:600;font-size:clamp(44px,5.1vw,84px);line-height:1.02;margin:0 0 10px;letter-spacing:.2px;text-shadow:0 26px 130px rgba(47,42,38,.14)}
+		.subtitle{margin:0;color:rgba(111,98,88,.86);line-height:2.0;font-size:16px;max-width:74ch}
+
+		.section{padding:30px 0 84px}
+		.card{border-radius:var(--r2);background:linear-gradient(180deg, rgba(250,248,245,.82), rgba(250,248,245,.46));border:1px solid rgba(95,70,54,.12);box-shadow:var(--shadowSoft);padding:18px}
+		.cardInner{border-radius:22px;background:rgba(250,248,245,.86);border:1px solid rgba(95,70,54,.12);padding:18px}
+
+		h2{margin:18px 0 8px;font-family:var(--serif);font-weight:600;font-size:28px;letter-spacing:.2px}
+		h3{margin:14px 0 6px;font-size:11px;font-weight:900;letter-spacing:.22em;text-transform:uppercase;color:rgba(47,42,38,.88)}
+		p,li{color:rgba(111,98,88,.86);line-height:2.0}
+		p{margin:0 0 12px}
+		ul{margin:0 0 12px;padding-left:18px}
+		.small{font-size:12px;color:rgba(111,98,88,.80);line-height:1.7}
+
+		.table{width:100%;border-collapse:separate;border-spacing:0 10px;margin:10px 0 0}
+		.table td{vertical-align:top}
+		.k{width:220px;max-width:45%;padding-right:10px;color:rgba(47,42,38,.88);font-weight:600}
+		.v{color:rgba(111,98,88,.86)}
+		@media (max-width:720px){.k{width:140px}}
+
+		/* Footer (identique Accueil) */
+		.footer{padding:34px 0 56px;color:rgba(47,42,38,.88);font-size:12px;background:linear-gradient(180deg, var(--beigeLight), var(--beigeSand));border-top:1px solid rgba(95,70,54,.12)}
+		.footer a{opacity:.95;text-decoration:none;color:rgba(47,42,38,.86);border-bottom:1px solid rgba(180,142,106,.30);transition:color var(--dur) var(--ease), border-color var(--dur) var(--ease)}
+		.footer a:hover{color:rgba(47,42,38,1);border-color:rgba(180,142,106,.55)}
+		.footerMinimal{padding-top:18px}
+		.footerRule{height:1px;background:linear-gradient(90deg, transparent, rgba(180,142,106,.40), rgba(95,70,54,.12), rgba(180,142,106,.32), transparent);opacity:.85;margin:0 0 18px}
+		.footerCap{font-family:var(--accent);font-weight:700;letter-spacing:.34em;text-transform:uppercase;font-size:10px;color:rgba(111,98,88,.78);margin:0 0 10px}
+		.footerRow{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+		.footerLegal{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+		.footerLegal a{text-decoration:none;border:1px solid rgba(95,70,54,.12);background:rgba(250,248,245,.55);padding:8px 12px;border-radius:999px;letter-spacing:.18em;text-transform:uppercase;font-size:10px;color:rgba(78,59,42,.82);box-shadow:0 16px 60px rgba(47,42,38,.06);transition:transform var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease)}
+		.footerLegal a:hover{color:rgba(47,42,38,1);border-color:rgba(180,142,106,.24);background:rgba(250,248,245,.80);transform:translateY(-1px)}
+		.footerMeta{color:rgba(111,98,88,.82);letter-spacing:.02em;line-height:1.7}
+		.footerMeta strong{font-family:var(--serif);font-weight:600;letter-spacing:.2px;color:rgba(47,42,38,.92)}
+		@media (max-width:720px){body{padding-top:82px}.footerMinimal{padding-top:14px}.footerRule{margin-bottom:14px}}
+	</style>
+</head>
+<body>
+	<header class="topbar">
+		<div class="container">
+			<div class="nav">
+				<a class="brand" href="accueil.html" aria-label="Accueil">
+					<img class="logo" src="logo.jpeg" alt="Logo" />
+					<div>
+						<strong>La Loge de Léontine</strong>
+						<span>Maison de soin • Rituels d’exception</span>
+					</div>
+				</a>
+
+				<nav class="navlinks" aria-label="Navigation">
+					<a href="accueil.html">Accueil</a>
+					<a href="prestations.html">Prestations</a>
+					<a href="contact.html">Contact</a>
+					<a href="confidentialite.html" aria-current="page">Confidentialité</a>
+				</nav>
+
+				<button class="burger" id="burger" aria-label="Ouvrir le menu" aria-controls="mobileMenu" aria-expanded="false">☰</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="mobileMenu" id="mobileMenu">
+		<div class="container" style="padding:12px 0 16px;">
+			<div style="display:grid; gap:10px;">
+				<a class="pill" href="accueil.html">Accueil</a>
+				<a class="pill" href="prestations.html">Prestations</a>
+				<a class="pill" href="contact.html">Contact</a>
+				<a class="pill" href="confidentialite.html" aria-current="page">Confidentialité</a>
+			</div>
+		</div>
+	</div>
+
+	<main>
+		<section class="hero">
+			<div class="container">
+				<h1>Politique de confidentialité</h1>
+				<p class="subtitle">Cette page explique quelles données sont collectées, pourquoi, pendant combien de temps et quels sont vos droits.</p>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container">
+				<div class="card">
+					<div class="cardInner">
+						<h2>1. Responsable du traitement</h2>
+						<table class="table" aria-label="Responsable du traitement">
+							<tr><td class="k">Structure</td><td class="v"><strong>La Loge de Léontine</strong> (à compléter)</td></tr>
+							<tr><td class="k">Adresse</td><td class="v">à compléter</td></tr>
+							<tr><td class="k">Email</td><td class="v"><a href="mailto:contact@votre-domaine.fr">contact@votre-domaine.fr</a> (à modifier)</td></tr>
+							<tr><td class="k">Téléphone</td><td class="v">à compléter</td></tr>
+						</table>
+
+						<h2>2. Données collectées</h2>
+						<p>Selon les fonctionnalités utilisées, nous pouvons collecter :</p>
+						<ul>
+							<li>identité et coordonnées (nom, email, téléphone),</li>
+							<li>informations liées à la réservation (prestation, date/heure, message),</li>
+							<li>données techniques (logs, adresse IP, type d’appareil/navigateur),</li>
+							<li>cookies et traceurs (voir section Cookies).</li>
+						</ul>
+
+						<h2>3. Finalités</h2>
+						<ul>
+							<li>répondre à vos demandes (contact),</li>
+							<li>gérer les rendez-vous et le suivi client,</li>
+							<li>améliorer le site et l’expérience utilisateur,</li>
+							<li>respecter nos obligations légales.</li>
+						</ul>
+
+						<h2>4. Base légale</h2>
+						<p>Les traitements reposent, selon les cas, sur :</p>
+						<ul>
+							<li>l’exécution d’un contrat ou de mesures précontractuelles,</li>
+							<li>le consentement (ex : certains cookies),</li>
+							<li>l’intérêt légitime (ex : sécurité, amélioration du service),</li>
+							<li>le respect d’obligations légales.</li>
+						</ul>
+
+						<h2>5. Destinataires</h2>
+						<p>Les données sont accessibles uniquement aux personnes habilitées et, si nécessaire, à des prestataires (hébergement, outils de formulaire, email). Aucun transfert commercial de vos données n’est effectué.</p>
+
+						<h2>6. Durées de conservation</h2>
+						<p>Les données sont conservées pendant une durée limitée et proportionnée :</p>
+						<ul>
+							<li>demandes de contact : durée nécessaire au traitement + archivage limité,</li>
+							<li>réservations : durée de la relation + obligations comptables/légales,</li>
+							<li>données techniques : durée courte à des fins de sécurité/diagnostic.</li>
+						</ul>
+
+						<h2>7. Sécurité</h2>
+						<p>Nous mettons en place des mesures techniques et organisationnelles adaptées pour protéger vos données (accès limité, bonnes pratiques, sécurisation des services utilisés).</p>
+
+						<h2>8. Vos droits</h2>
+						<p>Conformément au RGPD, vous pouvez exercer : accès, rectification, effacement, opposition, limitation, portabilité. Pour exercer vos droits : <a href="mailto:contact@votre-domaine.fr">contact@votre-domaine.fr</a> (à modifier).</p>
+						<p>Vous pouvez également introduire une réclamation auprès de la CNIL.</p>
+
+						<h2>9. Cookies</h2>
+						<p>Le site peut utiliser des cookies pour son fonctionnement et, si activé, pour mesurer l’audience. Lorsque la réglementation l’exige, votre consentement est demandé avant le dépôt de cookies non essentiels.</p>
+						<p class="small">Dernière mise à jour : <span id="lastUpdate"></span></p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div class="container">
+			<div class="footerMinimal" role="contentinfo" aria-label="Pied de page">
+				<div class="footerRule" aria-hidden="true"></div>
+				<div class="footerCap">Informations légales</div>
+				<div class="footerRow">
+					<div class="footerLegal" aria-label="Liens légaux">
+						<a href="mentions-legales.html">Mentions légales</a>
+						<a href="confidentialite.html" aria-current="page">Confidentialité</a>
+						<a href="cgv.html">CGV</a>
+					</div>
+					<div class="footerMeta">
+						© <span id="year"></span> <strong>La Loge de Léontine</strong>
+					</div>
+				</div>
+				<div class="footerMeta" style="margin-top:10px; opacity:.70">
+					Repère : <span style="letter-spacing:.12em">PRESTIGE_V5_2026-04-15</span>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+		document.getElementById("year").textContent = new Date().getFullYear();
+		document.getElementById("lastUpdate").textContent = new Date().toLocaleDateString("fr-FR", { year:"numeric", month:"long", day:"2-digit" });
+		const burger = document.getElementById("burger");
+		const mobileMenu = document.getElementById("mobileMenu");
+		burger?.addEventListener("click", () => {
+			const isOpen = mobileMenu.style.display === "block";
+			mobileMenu.style.display = isOpen ? "none" : "block";
+			burger.setAttribute("aria-expanded", String(!isOpen));
+		});
+	</script>
+</body>
+</html>

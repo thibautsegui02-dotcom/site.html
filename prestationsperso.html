@@ -1,0 +1,883 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Prestations — La Loge de Léontine</title>
+	<meta name="description" content="Toutes les prestations — La Loge de Léontine." />
+	<meta name="theme-color" content="#4E3B2A" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Cinzel:wght@500;600&display=swap" rel="stylesheet" />
+
+	<style>
+		/* ============================
+		   La Loge de Léontine — Prestations (articles + modal)
+		   ============================ */
+
+		:root{
+			--ecru:#F7F2EB;
+			--offwhite:#FAF8F5;
+			--beigeLight:#EEE4D8;
+			--beigeSand:#DCC9B6;
+			--linen:#D2BFA7;
+			--taupeSoft:#9C8572;
+			--woodLight:#B48E6A;
+			--woodMid:#8A6A4F;
+			--woodDeep:#5F4636;
+			--text:#2F2A26;
+			--text2:#6F6258;
+
+			--ink:var(--text);
+			--muted:rgba(111,98,88,.78);
+
+			--stroke:rgba(95,70,54,.18);
+			--stroke2:rgba(95,70,54,.10);
+			--glass:rgba(250,248,245,.72);
+
+			--container:1160px;
+			--gutter:24px;
+			--r:18px;
+			--r2:34px;
+
+			--shadow:0 32px 120px rgba(47,42,38,.22);
+			--shadowSoft:0 16px 55px rgba(47,42,38,.14);
+
+			--serif:"Cormorant Garamond","Playfair Display",serif;
+			--sans:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+			--accent:"Cinzel",serif;
+
+			--ease:cubic-bezier(.2,.8,.2,1);
+			--dur:.34s;
+		}
+
+		*{box-sizing:border-box}
+		html,body{height:100%}
+		body{
+			margin:0;
+			padding-top:74px;
+			font-family:var(--sans);
+			color:var(--ink);
+			background:
+				radial-gradient(1100px 640px at 18% -10%, rgba(180,142,106,.16), transparent 60%),
+				radial-gradient(980px 560px at 92% 8%, rgba(156,133,114,.20), transparent 62%),
+				radial-gradient(760px 420px at 55% 18%, rgba(250,248,245,.92), transparent 66%),
+				linear-gradient(180deg, var(--offwhite), var(--ecru) 56%, var(--beigeLight) 100%);
+			overflow-x:hidden;
+			text-rendering:optimizeLegibility;
+			-webkit-font-smoothing:antialiased;
+			-moz-osx-font-smoothing:grayscale;
+		}
+
+		body::before{
+			content:"";
+			position:fixed;inset:-35%;
+			background:
+				repeating-linear-gradient(90deg, rgba(78,59,42,.045) 0, rgba(78,59,42,.045) 1px, transparent 1px, transparent 12px),
+				repeating-linear-gradient(0deg, rgba(78,59,42,.030) 0, rgba(78,59,42,.030) 1px, transparent 1px, transparent 14px);
+			opacity:.14;
+			transform:rotate(-8deg);
+			pointer-events:none;
+			mix-blend-mode:multiply;
+		}
+
+		a{color:inherit}
+		.container{width:min(var(--container), calc(100% - (var(--gutter) * 2))); margin:0 auto}
+		:focus-visible{outline:2px solid rgba(198,169,107,.60);outline-offset:3px}
+		::selection{ background: rgba(180,142,106,.22); }
+
+		/* ============================
+		   Topbar (reprend ton style)
+		   ============================ */
+		.topbar{
+			position:fixed;top:0;left:0;right:0;z-index:60;
+			backdrop-filter: blur(18px) saturate(1.2);
+			-webkit-backdrop-filter: blur(18px) saturate(1.2);
+			background:linear-gradient(180deg, rgba(255,255,255,.86), rgba(250,248,245,.72));
+			border-bottom:1px solid rgba(95,70,54,.10);
+			box-shadow:0 10px 40px rgba(47,42,38,.06), 0 1px 0 rgba(255,255,255,.70) inset;
+		}
+		.nav{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0}
+		.brand{display:flex;gap:12px;align-items:center;text-decoration:none}
+		.brand strong{font-family:var(--accent);font-size:18px;letter-spacing:.14em;line-height:1;font-weight:700;text-transform:uppercase}
+		.brand span{display:block;margin-top:4px;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(138,106,79,.68)}
+
+		.navlinks{
+			display:flex;align-items:center;gap:18px;padding:8px 10px;border-radius:999px;
+			background:rgba(255,255,255,.55);
+			border:1px solid rgba(95,70,54,.10);
+			box-shadow:0 12px 40px rgba(47,42,38,.06), 0 1px 0 rgba(255,255,255,.70) inset;
+		}
+		.navlinks a{
+			position:relative;font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+			color:rgba(47,42,38,.82);
+			padding:10px 12px;border-radius:999px;text-decoration:none;
+			transition:transform var(--dur) var(--ease), color var(--dur) var(--ease), background var(--dur) var(--ease);
+		}
+		.navlinks a:hover{
+			background:rgba(250,248,245,.72);
+			transform:translateY(-1px);
+			color:rgba(47,42,38,1);
+			box-shadow:0 14px 46px rgba(47,42,38,.10);
+		}
+		.navlinks a[aria-current="page"]{
+			background:rgba(250,248,245,.92);
+			color:rgba(47,42,38,1);
+			border:1px solid rgba(180,142,106,.18);
+			box-shadow:0 14px 46px rgba(47,42,38,.08);
+		}
+
+		.burger{display:none;align-items:center;justify-content:center;width:46px;height:46px;border-radius:14px;background:rgba(250,248,245,.62);border:1px solid rgba(95,70,54,.12);box-shadow:0 16px 70px rgba(47,42,38,.10);cursor:pointer}
+		@media (max-width:920px){.navlinks{display:none}.burger{display:inline-flex}}
+		.mobileMenu{display:none;border-bottom:1px solid rgba(78,59,42,.12);background:rgba(250,248,244,.86);backdrop-filter: blur(16px)}
+		.pill{display:inline-flex;align-items:center;gap:8px;padding:12px 14px;border-radius:999px;border:1px solid rgba(95,70,54,.14);background:rgba(250,248,245,.72);cursor:pointer;font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:rgba(78,59,42,.86);text-decoration:none}
+
+		/* ============================
+		   Page
+		   ============================ */
+		.section{padding:64px 0}
+		h1{
+			font-family:var(--serif);
+			font-weight:600;
+			font-size:clamp(44px,5.1vw,76px);
+			line-height:1.02;
+			margin:0 0 10px;
+			letter-spacing:.2px;
+			text-shadow:0 26px 130px rgba(47,42,38,.12);
+		}
+		.lead{margin:0;color:var(--muted);line-height:2.0;max-width:78ch}
+
+		/* Catégories */
+		.category{margin-top:22px}
+		.categoryHead{
+			display:flex;
+			align-items:flex-end;
+			justify-content:space-between;
+			gap:14px;
+			flex-wrap:wrap;
+		}
+		.h2{
+			margin:0;
+			font-family:var(--accent);
+			letter-spacing:.22em;
+			text-transform:uppercase;
+			font-size:12px;
+			color:rgba(47,42,38,.86);
+		}
+		.catNote{
+			margin-top:10px;
+			padding:14px 16px;
+			border-radius:22px;
+			background:rgba(250,248,245,.72);
+			border:1px solid rgba(95,70,54,.12);
+			box-shadow:var(--shadowSoft);
+			color:rgba(111,98,88,.86);
+			line-height:1.9;
+			font-size:13px;
+		}
+
+		/* Grid d'articles */
+		.grid{
+			display:grid;
+			grid-template-columns:repeat(3,1fr);
+			gap:14px;
+			margin-top:14px;
+		}
+		@media (max-width:980px){.grid{grid-template-columns:1fr}}
+
+		.article{
+			border-radius:var(--r);
+			background:linear-gradient(180deg, rgba(250,248,245,.92), rgba(247,242,235,.78));
+			border:1px solid rgba(95,70,54,.12);
+			box-shadow:var(--shadowSoft);
+			overflow:hidden;
+			transition:transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+			cursor:pointer;
+		}
+		.article:hover{transform:translateY(-3px);border-color:rgba(180,142,106,.26);box-shadow:0 22px 70px rgba(47,42,38,.16)}
+		.article:focus-visible{outline:2px solid rgba(198,169,107,.60);outline-offset:4px}
+
+		.thumb{
+			position:relative;
+			aspect-ratio: 4/3;
+			background:
+				radial-gradient(520px 220px at 30% 20%, rgba(180,142,106,.14), transparent 60%),
+				linear-gradient(180deg, rgba(250,248,245,.70), rgba(245,241,235,.60));
+			border-bottom:1px solid rgba(95,70,54,.10);
+			display:grid;
+			place-items:center;
+			padding:18px;
+		}
+		.thumbMark{
+			font-family:var(--serif);
+			font-weight:600;
+			font-size:22px;
+			color:rgba(47,42,38,.86);
+			text-align:center;
+			line-height:1.1;
+		}
+		.priceBadge{
+			position:absolute;
+			top:12px; right:12px;
+			padding:9px 10px;
+			border-radius:999px;
+			font-size:11px;
+			font-weight:900;
+			letter-spacing:.14em;
+			text-transform:uppercase;
+			background:linear-gradient(135deg, rgba(180,142,106,.92), rgba(198,169,107,.86));
+			color:rgba(47,42,38,.92);
+			border:1px solid rgba(95,70,54,.18);
+			box-shadow:0 18px 60px rgba(47,42,38,.18);
+			white-space:nowrap;
+		}
+		.priceBadge.dim{
+			background:rgba(250,248,245,.78);
+			color:rgba(111,98,88,.86);
+			box-shadow:none;
+		}
+
+		.body{padding:16px}
+		.body h3{
+			margin:0 0 6px;
+			font-size:12px;
+			letter-spacing:.22em;
+			text-transform:uppercase;
+			color:rgba(47,42,38,.92);
+		}
+		.sub{
+			margin:0;
+			color:rgba(111,98,88,.86);
+			font-size:13px;
+			line-height:1.9;
+		}
+
+		.metaRow{
+			padding:0 16px 16px;
+			display:flex;
+			align-items:center;
+			justify-content:space-between;
+			gap:10px;
+		}
+		.meta{
+			display:inline-flex;
+			align-items:center;
+			gap:8px;
+			padding:10px 12px;
+			border-radius:999px;
+			border:1px solid rgba(95,70,54,.12);
+			background:rgba(250,248,245,.72);
+			color:rgba(111,98,88,.86);
+			font-size:11px;
+			letter-spacing:.12em;
+			text-transform:uppercase;
+			white-space:nowrap;
+		}
+		.btnMini{
+			display:inline-flex;align-items:center;justify-content:center;
+			padding:10px 12px;border-radius:999px;
+			font-size:10.5px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+			border:1px solid rgba(95,70,54,.18);
+			background:rgba(250,248,245,.78);
+			color:rgba(47,42,38,.92);
+		}
+
+		/* Modal */
+		.overlay{
+			position:fixed;inset:0;
+			background:rgba(47,42,38,.42);
+			backdrop-filter: blur(8px);
+			display:none;
+			z-index:80;
+		}
+		.overlay.show{display:block}
+
+		.modal{
+			position:fixed;
+			left:50%; top:50%;
+			transform:translate(-50%,-50%);
+			width:min(760px, 92vw);
+			background:rgba(250,248,245,.92);
+			border:1px solid rgba(95,70,54,.14);
+			box-shadow:0 32px 120px rgba(47,42,38,.24);
+			border-radius:28px;
+			z-index:90;
+			display:none;
+			overflow:hidden;
+		}
+		.modal.show{display:block}
+
+		.modalHead{
+			padding:18px;
+			border-bottom:1px solid rgba(95,70,54,.10);
+			display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+		}
+		.modalTitle{
+			margin:0;
+			font-family:var(--serif);
+			font-weight:600;
+			font-size:30px;
+			letter-spacing:.2px;
+			line-height:1.1;
+		}
+		.modalSub{
+			margin-top:6px;
+			color:rgba(111,98,88,.86);
+			line-height:1.8;
+		}
+		.close{
+			width:44px;height:44px;border-radius:16px;
+			border:1px solid rgba(95,70,54,.12);
+			background:rgba(250,248,245,.78);
+			cursor:pointer;
+			color:rgba(47,42,38,.88);
+		}
+
+		.modalBody{padding:18px}
+		.detailRow{
+			display:flex;flex-wrap:wrap;gap:10px;
+			margin-top:10px;
+		}
+		.pillInfo{
+			display:inline-flex;align-items:center;gap:8px;
+			padding:10px 12px;border-radius:999px;
+			border:1px solid rgba(95,70,54,.12);
+			background:rgba(250,248,245,.72);
+			color:rgba(47,42,38,.88);
+			font-size:11px;font-weight:900;
+			letter-spacing:.14em;text-transform:uppercase;
+		}
+		.desc{
+			margin-top:12px;
+			color:rgba(111,98,88,.88);
+			line-height:2.0;
+			font-size:14px;
+		}
+		.smallNote{
+			margin-top:14px;
+			padding:12px 14px;
+			border-radius:18px;
+			background:rgba(180,142,106,.10);
+			border:1px solid rgba(180,142,106,.20);
+			color:rgba(78,59,42,.86);
+			line-height:1.8;
+			font-size:12.5px;
+		}
+
+		.footerNote{
+			margin-top:18px;
+			padding:14px 16px;
+			border-radius:22px;
+			background:rgba(250,248,245,.72);
+			border:1px solid rgba(95,70,54,.12);
+			box-shadow:var(--shadowSoft);
+			color:rgba(111,98,88,.86);
+			line-height:1.9;
+			font-size:13px;
+		}
+	</style>
+</head>
+
+<body>
+	<header class="topbar">
+		<div class="container">
+			<div class="nav">
+				<a class="brand" href="accueil.html" aria-label="Accueil">
+					<div>
+						<strong>La Loge de Léontine</strong>
+						<span>Maison de soin • Rituels d’exception</span>
+					</div>
+				</a>
+
+				<nav class="navlinks" aria-label="Navigation">
+					<a href="accueil.html">Accueil</a>
+					<a href="prestationsperso" aria-current="page">Prestations</a>
+					<a href="prestations.html">Se former</a>
+					<a href="offrir.html">Offrir</a>
+					<a href="contact.html">Contact et réservation</a>
+				</nav>
+
+				<button class="burger" id="burger" aria-label="Ouvrir le menu" aria-controls="mobileMenu" aria-expanded="false">☰</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="mobileMenu" id="mobileMenu">
+		<div class="container" style="padding:12px 0 16px;">
+			<div style="display:grid; gap:10px;">
+				<a class="pill" href="accueil.html">Accueil</a>
+				<a class="pill" href="prestationsperso" aria-current="page">Prestations</a>
+				<a class="pill" href="prestations.html">Se former</a>
+				<a class="pill" href="offrir.html">Offrir</a>
+				<a class="pill" href="contact.html">Contact et réservation</a>
+				<a class="pill" href="contact.html">Prendre rendez-vous</a>
+			</div>
+		</div>
+	</div>
+
+	<main>
+		<section class="section">
+			<div class="container">
+				<h1>Prestations</h1>
+				<p class="lead">Découvrez l’ensemble des rituels et soins, classés par catégories. Cliquez sur une prestation pour voir le prix et le condensé de présentation.</p>
+
+				<div id="categories"></div>
+
+				<div class="footerNote">
+					<strong>Note :</strong> Prestations de bien-être et de relaxation sans aucun caractère thérapeutique ou médical.
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- Modal -->
+	<div class="overlay" id="overlay" aria-hidden="true"></div>
+
+	<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+		<div class="modalHead">
+			<div>
+				<div class="modalTitle" id="modalTitle"></div>
+				<div class="modalSub" id="modalSub"></div>
+				<div class="detailRow" id="modalPills"></div>
+			</div>
+			<button class="close" id="close" type="button" aria-label="Fermer">✕</button>
+		</div>
+		<div class="modalBody">
+			<div class="desc" id="modalDesc"></div>
+			<div class="smallNote" id="modalExtra" style="display:none"></div>
+		</div>
+	</div>
+
+	<script>
+		// Mobile menu
+		const burger = document.getElementById("burger");
+		const mobileMenu = document.getElementById("mobileMenu");
+		burger?.addEventListener("click", () => {
+			const isOpen = mobileMenu.style.display === "block";
+			mobileMenu.style.display = isOpen ? "none" : "block";
+			burger.setAttribute("aria-expanded", String(!isOpen));
+		});
+		mobileMenu?.querySelectorAll("a").forEach(a =>
+			a.addEventListener("click", () => {
+				mobileMenu.style.display = "none";
+				burger?.setAttribute("aria-expanded", "false");
+			})
+		);
+
+		/* ========= Helpers ========= */
+		function escapeHtml(s){
+			return String(s ?? "")
+				.replaceAll("&","&amp;")
+				.replaceAll("<","&lt;")
+				.replaceAll(">","&gt;")
+				.replaceAll('"',"&quot;")
+				.replaceAll("'","&#039;");
+		}
+		function euro(n){
+			if (n == null || n === "") return null;
+			return (Math.round(Number(n) * 100) / 100).toFixed(0) + " €";
+		}
+		function priceLabel(item){
+			// Si on a un prix simple
+			if (item.price != null) return euro(item.price);
+			// Si c'est une grille tarifaire
+			if (Array.isArray(item.pricing) && item.pricing.length){
+				// Affiche "dès" avec le plus petit prix trouvé (pratique en miniature)
+				const nums = item.pricing
+					.map(x => Number(x?.price))
+					.filter(n => Number.isFinite(n));
+				if (nums.length){
+					return "Dès " + euro(Math.min(...nums));
+				}
+			}
+			return null;
+		}
+
+		/* ========= DATA (depuis ton PDF) ========= */
+		const DATA = [
+			{
+				id: "head-spa",
+				title: "Prestations Head Spa",
+				note: "Un protocole unique et complet qui associe massage du cuir chevelu, du visage, du décolleté, des bras et des mains. Bain de vapeur douce et application de soins adaptés. (Soin de bien-être et de relaxation uniquement. Ne comprend aucune prestation de coiffure ou de coupe. Le séchage se fait naturellement).",
+				items: [
+					{
+						id: "divine-justine",
+						name: "Divine Justine",
+						subtitle: "Rituel Détente Extrême (Rituel Signature)",
+						duration: "1h30",
+						price: 95,
+						desc: "Un voyage de plénitude où le temps s'étire pour une relaxation absolue et un bien-être total.",
+					},
+					{
+						id: "elixir-elisa",
+						name: "L'Élixir d'Élisa",
+						subtitle: "Rituel Sérénité",
+						duration: "1h00",
+						price: 70,
+						desc: "Un soin complet qui associe massage enveloppant et détente profonde pour un moment de sérénité.",
+					},
+					{
+						id: "ella-douceur",
+						name: "Ella Douceur",
+						subtitle: "Rituel Initiation",
+						duration: "45 min",
+						price: 50,
+						desc: "Un rituel court et apaisant, idéal pour une pause bien-être et relâcher les tensions du haut du corps.",
+					},
+				],
+			},
+
+			{
+				id: "luxopuncture",
+				title: "Luxopuncture (Luxomed)",
+				note: null,
+				items: [
+					{
+						id: "luxo-perte",
+						name: "Perte de Poids",
+						subtitle: null,
+						duration: null,
+						price: null,
+						desc: null,
+						pricing: [
+							{ label: "5 séances", price: 220 },
+							{ label: "10 séances", price: 425 },
+							{ label: "15 séances", price: 625 },
+						],
+						extra:
+							"Séances d'entretien (toutes catégories) : 45 € la séance. Perte de poids : 1 séance par mois.",
+					},
+					{
+						id: "luxo-relax",
+						name: "Relaxation",
+						subtitle: null,
+						duration: null,
+						price: null,
+						desc: null,
+						pricing: [
+							{ label: "1 séance", price: 45 },
+							{ label: "4 séances", price: 170 },
+							{ label: "7 séances", price: 285 },
+						],
+						extra:
+							"Séances d'entretien (toutes catégories) : 45 € la séance. Relaxation : 3 séances espacées d'une semaine, environ tous les 6 mois.",
+					},
+					{
+						id: "luxo-rajeunissement",
+						name: "Rajeunissement Visage",
+						subtitle: null,
+						duration: null,
+						price: null,
+						desc: null,
+						pricing: [
+							{ label: "8 séances", price: 340 },
+						],
+						extra:
+							"Séances d'entretien (toutes catégories) : 45 € la séance. Rajeunissement visage : 1 séance par mois.",
+					},
+					{
+						id: "luxo-menopause",
+						name: "Bien-être Ménopause",
+						subtitle: null,
+						duration: null,
+						price: null,
+						desc: null,
+						pricing: [
+							{ label: "7 séances", price: 285 },
+						],
+						extra:
+							"Séances d'entretien (toutes catégories) : 45 € la séance. Bien-être ménopause : 3 séances espacées d'une semaine, environ tous les 6 mois.",
+					},
+					{
+						id: "luxo-tabac",
+						name: "Arrêt du Tabac",
+						subtitle: null,
+						duration: null,
+						price: 285,
+						desc: null,
+						pricing: [
+							{ label: "Forfait", price: 285 },
+						],
+						extra:
+							"Séances d'entretien (toutes catégories) : 45 € la séance.",
+					},
+				],
+			},
+
+			{
+				id: "massages",
+				title: "Massages Bien-être & Signatures",
+				note: null,
+				items: [
+					{
+						id: "oasis-leontine",
+						name: "L'Oasis de Léontine",
+						subtitle: "Rituel Signature",
+						duration: "1h30",
+						price: 85,
+						desc: "Une expérience unique et personnalisée, conçue pour répondre aux besoins spécifiques de votre corps. Pressions, étirements et manœuvres enveloppantes se succèdent dans une chorégraphie sur mesure pour un moment qui prolonge ses bienfaits bien au-delà de la séance.",
+					},
+					{
+						id: "oasis-marie",
+						name: "L'Oasis de Marie",
+						subtitle: "Visage & Corps",
+						duration: "2h00",
+						price: 105,
+						desc: "Un grand moment d'évasion globale combinant le soin du visage et du corps pour une déconnexion absolue.",
+					},
+					{
+						id: "instant-leon",
+						name: "Massage Signature « L'instant Léon »",
+						subtitle: "Crânien & Visage",
+						duration: "45 min",
+						price: 50,
+						desc: null,
+					},
+					{
+						id: "instant-leontine",
+						name: "Massage Signature « L'instant Léontine »",
+						subtitle: "Visage Éclat",
+						duration: "30 min",
+						price: 35,
+						desc: "Plongez dans une parenthèse de douceur avec ce massage signature aux gestes lents et enveloppants. Inspiré des techniques de drainage facial, il soulage les tensions, favorise la microcirculation et allège les traits. Le teint retrouve de l'éclat, le regard s'ouvre et l'esprit se relâche profondément.",
+					},
+					{ id:"apaisement-total-corps", name:"Apaisement Total Corps", subtitle:null, duration:"1h00", price:65, desc:null },
+					{ id:"pierres-chaudes", name:"Harmonie de Chaleur aux Pierres Chaudes", subtitle:null, duration:"1h00", price:65, desc:null },
+					{ id:"bulle-bien-etre", name:"Bulle de Bien-être", subtitle:"Massage arrière du corps", duration:"45 min", price:50, desc:null },
+					{ id:"reboost-musculaire", name:"Reboost Musculaire", subtitle:null, duration:"45 min", price:50, desc:null },
+					{ id:"relaxation-ciblee", name:"Relaxation Ciblée Zone", subtitle:"Nuque | Dos", duration:"30 min", price:35, desc:null },
+				],
+			},
+
+			{
+				id: "rituels-silhouette",
+				title: "Rituels Spécifiques & Silhouette",
+				note: null,
+				items: [
+					{
+						id: "future-maman",
+						name: "Rituel Douceur Future Maman",
+						subtitle: "Dès le 4ème mois",
+						duration: null,
+						price: null,
+						desc: "Un soin cocon à l'huile douce 100% végétale pour accompagner la grossesse avec sérénité. Soulage les tensions musculaires, favorise la circulation, améliore le sommeil et procure une détente profonde tout en renforçant le lien avec bébé.",
+						pricing: [
+							{ label: "Séance", price: 65 },
+							{ label: "Cure 3 séances", price: 150 },
+						],
+					},
+					{
+						id: "capucines",
+						name: "Les Capucines",
+						subtitle: "Maman et Enfant",
+						duration: "1h00",
+						price: 50,
+						desc: "Un moment de complicité partagé : Massage du visage ou du dos pour Maman + Massage relaxant pour l'enfant.",
+					},
+					{
+						id: "affinement-silhouette",
+						name: "Affinement Silhouette",
+						subtitle: "Combo Maderothérapie / Drainage",
+						duration: null,
+						price: null,
+						desc: null,
+						pricing: [
+							{ label: "30 min", price: 35 },
+							{ label: "45 min", price: 50 },
+							{ label: "60 min", price: 65 },
+						],
+					},
+					{
+						id: "equilibre-lymphatique",
+						name: "Équilibre Lymphatique",
+						subtitle: "Drainage Brésilien",
+						duration: null,
+						price: null,
+						desc: null,
+						pricing: [
+							{ label: "30 min", price: 35 },
+							{ label: "45 min", price: 50 },
+							{ label: "60 min", price: 65 },
+						],
+					},
+				],
+			},
+
+			{
+				id: "combos",
+				title: "Combos & Formules sur Mesure",
+				note: null,
+				items: [
+					{
+						id: "escapade-express",
+						name: "Escapade Express",
+						subtitle: null,
+						duration: "1h00",
+						price: 55,
+						desc: "Au programme : Massage Visage Éclat + Massage Épaules et Cou + Luxopuncture Relaxation.",
+					},
+					{
+						id: "serenite-soir",
+						name: "Sérénité du Soir",
+						subtitle: null,
+						duration: "1h00",
+						price: 65,
+						desc: "Au programme : Massage du dos aux pierres chaudes + Réflexologie plantaire + Luxopuncture Sommeil.",
+					},
+					{
+						id: "bien-etre-carte",
+						name: "Bien-être à la Carte",
+						subtitle: null,
+						duration: "1h30",
+						price: 80,
+						desc: "Au programme : Massage Visage + Massages 3 zones du corps au choix + Réflexologie plantaire.",
+					},
+				],
+			},
+		];
+
+		/* ========= RENDER ========= */
+		const root = document.getElementById("categories");
+
+		function render(){
+			root.innerHTML = "";
+
+			for (const cat of DATA){
+				const wrap = document.createElement("section");
+				wrap.className = "category";
+				wrap.id = cat.id;
+
+				wrap.innerHTML = `
+					<div class="categoryHead">
+						<div class="h2">${escapeHtml(cat.title)}</div>
+					</div>
+					${cat.note ? `<div class="catNote">${escapeHtml(cat.note)}</div>` : ""}
+					<div class="grid" aria-label="${escapeHtml(cat.title)}"></div>
+				`;
+
+				const grid = wrap.querySelector(".grid");
+
+				for (const item of cat.items){
+					const label = priceLabel(item);
+					const badge = label ? label : "Voir tarifs";
+
+					const subline = item.subtitle
+						? item.subtitle
+						: (item.desc ? item.desc : "Cliquez pour voir le détail");
+
+					const durationText = item.duration ? `⏱ ${item.duration}` : "⏱ Selon formule";
+
+					const article = document.createElement("article");
+					article.className = "article";
+					article.tabIndex = 0;
+					article.setAttribute("role", "button");
+					article.setAttribute("aria-label", `Voir ${item.name}`);
+
+					article.innerHTML = `
+						<div class="thumb" aria-hidden="true">
+							<div class="priceBadge ${label ? "" : "dim"}">${escapeHtml(badge)}</div>
+							<div class="thumbMark">${escapeHtml(item.name)}</div>
+						</div>
+						<div class="body">
+							<h3>${escapeHtml(item.name)}</h3>
+							<p class="sub">${escapeHtml(subline)}</p>
+						</div>
+						<div class="metaRow">
+							<div class="meta">${escapeHtml(durationText)}</div>
+							<div class="btnMini">Voir</div>
+						</div>
+					`;
+
+					article.addEventListener("click", () => openModal(cat, item));
+					article.addEventListener("keydown", (e) => {
+						if (e.key !== "Enter" && e.key !== " ") return;
+						e.preventDefault();
+						openModal(cat, item);
+					});
+
+					grid.appendChild(article);
+				}
+
+				root.appendChild(wrap);
+			}
+		}
+
+		/* ========= MODAL ========= */
+		const overlay = document.getElementById("overlay");
+		const modal = document.getElementById("modal");
+		const closeBtn = document.getElementById("close");
+
+		const modalTitle = document.getElementById("modalTitle");
+		const modalSub = document.getElementById("modalSub");
+		const modalPills = document.getElementById("modalPills");
+		const modalDesc = document.getElementById("modalDesc");
+		const modalExtra = document.getElementById("modalExtra");
+
+		function openModal(cat, item){
+			modalTitle.textContent = item.name || "";
+			modalSub.textContent = item.subtitle ? item.subtitle : cat.title;
+
+			// Pills
+			modalPills.innerHTML = "";
+
+			const p = priceLabel(item);
+			const pricePill = document.createElement("div");
+			pricePill.className = "pillInfo";
+			pricePill.textContent = p ? ("Prix " + p) : "Tarifs : voir détail";
+			modalPills.appendChild(pricePill);
+
+			const durationPill = document.createElement("div");
+			durationPill.className = "pillInfo";
+			durationPill.textContent = item.duration ? ("Durée " + item.duration) : "Durée : selon formule";
+			modalPills.appendChild(durationPill);
+
+			// Description
+			const desc = item.desc
+				? item.desc
+				: "Tarifs disponibles. Cliquez sur les formules ci-dessous pour choisir la séance/cure adaptée.";
+			modalDesc.textContent = desc;
+
+			// Détail tarifs (si grille)
+			let extra = "";
+			if (Array.isArray(item.pricing) && item.pricing.length){
+				extra += "<strong>Tarifs :</strong><br>";
+				extra += item.pricing
+					.map(x => `• ${escapeHtml(x.label)} : <strong>${escapeHtml(euro(x.price))}</strong>`)
+					.join("<br>");
+			}
+			if (item.extra){
+				extra += (extra ? "<br><br>" : "");
+				extra += "<strong>Entretien / Informations :</strong><br>" + escapeHtml(item.extra);
+			}
+
+			if (extra){
+				modalExtra.style.display = "block";
+				modalExtra.innerHTML = extra;
+			} else {
+				modalExtra.style.display = "none";
+				modalExtra.innerHTML = "";
+			}
+
+			overlay.classList.add("show");
+			modal.classList.add("show");
+			document.body.style.overflow = "hidden";
+		}
+
+		function closeModal(){
+			overlay.classList.remove("show");
+			modal.classList.remove("show");
+			document.body.style.overflow = "";
+		}
+
+		closeBtn.addEventListener("click", closeModal);
+		overlay.addEventListener("click", closeModal);
+		document.addEventListener("keydown", (e) => {
+			if (e.key === "Escape") closeModal();
+		});
+
+		// Init
+		render();
+	</script>
+</body>
+</html>
