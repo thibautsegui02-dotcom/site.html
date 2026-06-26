@@ -1,0 +1,561 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<title>Nos horaires — La Loge de Léontine</title>
+	<meta name="description" content="Horaires d’ouverture — La Loge de Léontine. La Suze-sur-Sarthe." />
+	<meta name="theme-color" content="#4E3B2A" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Playfair+Display:wght@500;600&family=Cinzel:wght@500;600&display=swap" rel="stylesheet" />
+
+	<style>
+		/* ============================
+		   La Loge de Léontine — Horaires (Prestige)
+		   Repère : PRESTIGE_HORAIRES_V2_2026-04-20
+		   ============================ */
+
+		:root{
+			--ecru:#F7F2EB;
+			--offwhite:#FAF8F5;
+			--beigeLight:#EEE4D8;
+			--beigeSand:#DCC9B6;
+			--linen:#D2BFA7;
+			--taupeSoft:#9C8572;
+			--woodLight:#B48E6A;
+			--woodMid:#8A6A4F;
+			--woodDeep:#5F4636;
+			--text:#2F2A26;
+			--text2:#6F6258;
+
+			--ink:var(--text);
+			--ink2:var(--text2);
+			--ivory:var(--offwhite);
+			--sand:var(--ecru);
+			--taupe:var(--beigeSand);
+			--muted:rgba(111,98,88,.78);
+
+			--stroke:rgba(95,70,54,.18);
+			--stroke2:rgba(95,70,54,.10);
+			--glass:rgba(250,248,245,.72);
+			--glass2:rgba(250,248,245,.56);
+
+			--container:1160px;
+			--gutter:24px;
+
+			--r:18px;
+			--r2:34px;
+
+			--shadow:0 32px 120px rgba(47,42,38,.22);
+			--shadowSoft:0 16px 55px rgba(47,42,38,.14);
+
+			--serif:"Cormorant Garamond","Playfair Display",serif;
+			--sans:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+			--accent:"Cinzel",serif;
+
+			--ease:cubic-bezier(.2,.8,.2,1);
+			--dur:.34s;
+		}
+
+		*{box-sizing:border-box}
+		html,body{height:100%}
+		body{
+			margin:0;
+			padding-top:74px;
+			font-family:var(--sans);
+			color:var(--ink);
+			background:
+				radial-gradient(1100px 640px at 18% -10%, rgba(180,142,106,.16), transparent 60%),
+				radial-gradient(980px 560px at 92% 8%, rgba(156,133,114,.20), transparent 62%),
+				radial-gradient(760px 420px at 55% 18%, rgba(250,248,245,.92), transparent 66%),
+				linear-gradient(180deg, var(--offwhite), var(--ecru) 56%, var(--beigeLight) 100%);
+			overflow-x:hidden;
+			text-rendering:optimizeLegibility;
+			-webkit-font-smoothing:antialiased;
+			-moz-osx-font-smoothing:grayscale;
+		}
+
+		/* Texture douce */
+		body::before{
+			content:"";
+			position:fixed;inset:-35%;
+			background:
+				repeating-linear-gradient(90deg, rgba(78,59,42,.045) 0, rgba(78,59,42,.045) 1px, transparent 1px, transparent 12px),
+				repeating-linear-gradient(0deg, rgba(78,59,42,.030) 0, rgba(78,59,42,.030) 1px, transparent 1px, transparent 14px);
+			opacity:.14;
+			transform:rotate(-8deg);
+			pointer-events:none;
+			mix-blend-mode:multiply;
+		}
+
+		a{color:inherit}
+		:focus-visible{outline:2px solid rgba(180,142,106,.55);outline-offset:3px}
+		.container{width:min(var(--container), calc(100% - (var(--gutter) * 2))); margin:0 auto}
+
+		/* Skip link */
+		.skip{
+			position:absolute;left:-999px;top:10px;
+			background:linear-gradient(135deg,var(--offwhite),rgba(180,142,106,.55));
+			color:var(--ink);
+			padding:10px 14px;
+			border-radius:999px;
+			font-weight:800;
+			letter-spacing:.12em;
+			text-transform:uppercase;
+			z-index:999;
+		}
+		.skip:focus{left:12px}
+
+		/* Topbar */
+		.topbar{
+			position:fixed;top:0;left:0;right:0;z-index:60;
+			backdrop-filter:blur(18px);
+			background:rgba(250,248,245,.78);
+			border-bottom:1px solid var(--stroke2);
+		}
+		.nav{
+			display:flex;
+			align-items:center;
+			justify-content:space-between;
+			gap:14px;
+			padding:10px 0;
+		}
+		.brand{
+			display:flex;
+			gap:12px;
+			align-items:center;
+			min-width:240px;
+			text-decoration:none;
+		}
+		.logo{
+			width:68px;height:68px;border-radius:50%;
+			overflow:hidden;object-fit:cover;display:block;
+			background:transparent;
+		}
+		.brand strong{
+			font-family:var(--serif);
+			font-size:18px;
+			letter-spacing:.35px;
+			line-height:1;
+			font-weight:600;
+		}
+		.brand span{
+			display:block;
+			margin-top:4px;
+			font-size:12px;
+			letter-spacing:.10em;
+			text-transform:uppercase;
+			color:var(--taupe);
+		}
+
+		.navlinks{display:flex;gap:18px;align-items:center}
+		.navlinks a{
+			text-decoration:none;
+			font-size:11px;
+			letter-spacing:.26em;
+			text-transform:uppercase;
+			color:rgba(78,59,42,.82);
+			padding:10px 10px;
+			border-radius:12px;
+			transition:background var(--dur) var(--ease), transform var(--dur) var(--ease), color var(--dur) var(--ease);
+		}
+		.navlinks a:hover{background:rgba(180,142,106,.12); transform:translateY(-1px); color:rgba(78,59,42,1)}
+
+		.cta{
+			display:inline-flex;align-items:center;justify-content:center;gap:10px;
+			padding:11px 16px;border-radius:999px;
+			font-size:11px;font-weight:900;
+			letter-spacing:.18em;text-transform:uppercase;
+			color:var(--ink);
+			background:linear-gradient(135deg,var(--offwhite),rgba(180,142,106,.48));
+			box-shadow:0 16px 70px rgba(47,42,38,.12);
+			border:1px solid rgba(180,142,106,.38);
+			transition:transform var(--dur) var(--ease), filter var(--dur) var(--ease);
+			white-space:nowrap;
+			text-decoration:none;
+		}
+		.cta:hover{transform:translateY(-1px); filter:saturate(1.06)}
+
+		.burger{
+			display:none;
+			align-items:center;
+			justify-content:center;
+			width:46px;height:46px;
+			border-radius:14px;
+			background:rgba(255,255,255,.06);
+			border:1px solid rgba(255,255,255,.10);
+			color:rgba(78,59,42,.86);
+			font-size:18px;
+		}
+		@media (max-width:920px){
+			.navlinks{display:none}
+			.burger{display:inline-flex}
+		}
+		.mobileMenu{
+			display:none;
+			border-bottom:1px solid rgba(78,59,42,.12);
+			background:rgba(250,248,244,.86);
+			backdrop-filter: blur(16px);
+		}
+
+		/* Page */
+		.hero{padding:96px 0 22px}
+		.kicker{
+			display:inline-flex;align-items:center;gap:10px;
+			padding:9px 12px;border-radius:999px;
+			background:rgba(250,248,245,.84);
+			border:1px solid rgba(95,70,54,.10);
+			color:rgba(111,98,88,.86);
+			font-size:12px;
+		}
+		.dot{width:8px;height:8px;border-radius:999px;background:linear-gradient(135deg,var(--offwhite),rgba(180,142,106,.92));box-shadow:0 0 0 4px rgba(180,142,106,.14)}
+		h1{
+			font-family:var(--serif);
+			font-weight:600;
+			font-size:clamp(42px,5vw,78px);
+			line-height:1.02;
+			margin:18px 0 10px;
+			letter-spacing:.2px;
+			text-shadow:0 26px 130px rgba(47,42,38,.20);
+		}
+		.subtitle{
+			color:rgba(111,98,88,.86);
+			font-size:16px;
+			line-height:2.0;
+			max-width:76ch;
+			margin:0;
+		}
+
+		.section{padding:34px 0 74px}
+
+		/* Premium blocks */
+		.shell{
+			border-radius:var(--r2);
+			background:
+				radial-gradient(1000px 380px at 22% 6%, rgba(180,142,106,.14), transparent 56%),
+				linear-gradient(180deg, rgba(250,248,245,.76), rgba(250,248,245,.34));
+			border:1px solid rgba(95,70,54,.12);
+			box-shadow:var(--shadow);
+			padding:18px;
+			position:relative;
+			overflow:hidden;
+		}
+		.shellInner{
+			border-radius:22px;
+			background:rgba(250,248,245,.82);
+			border:1px solid rgba(95,70,54,.12);
+			padding:18px;
+		}
+
+		.grid{
+			display:grid;
+			grid-template-columns:1.05fr .95fr;
+			gap:16px;
+			align-items:start;
+		}
+		@media (max-width:980px){.grid{grid-template-columns:1fr}}
+
+		.sectionTitle{
+			margin:0 0 10px;
+			font-family:var(--serif);
+			font-weight:600;
+			font-size:24px;
+		}
+
+		/* Cards horaires */
+		.cards{
+			display:grid;
+			grid-template-columns:repeat(2, minmax(0, 1fr));
+			gap:12px;
+		}
+		@media (max-width:720px){.cards{grid-template-columns:1fr}}
+		.dayCard{
+			border-radius:22px;
+			padding:16px;
+			background:linear-gradient(180deg, rgba(250,248,245,.92), rgba(247,242,235,.78));
+			border:1px solid rgba(95,70,54,.12);
+			box-shadow:var(--shadowSoft);
+			transition:transform var(--dur) var(--ease), border-color var(--dur) var(--ease), filter var(--dur) var(--ease);
+			position:relative;
+			overflow:hidden;
+		}
+		.dayCard:hover{transform:translateY(-2px);border-color:rgba(180,142,106,.24);filter:saturate(1.01)}
+		.dayTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+		.dayName{
+			margin:0;
+			font-family:var(--serif);
+			font-size:22px;
+			font-weight:600;
+			letter-spacing:.2px;
+		}
+		.badge{
+			display:inline-flex;align-items:center;gap:8px;
+			padding:8px 10px;border-radius:999px;
+			font-size:10.5px;
+			letter-spacing:.16em;
+			text-transform:uppercase;
+			color:rgba(111,98,88,.86);
+			background:rgba(250,248,245,.78);
+			border:1px solid rgba(95,70,54,.10);
+			white-space:nowrap;
+		}
+		.badgeOpen{border-color:rgba(36,130,80,.22); background:rgba(36,130,80,.08)}
+		.badgeClosed{border-color:rgba(140,40,40,.18); background:rgba(140,40,40,.06)}
+		.hoursLine{margin:10px 0 0; color:rgba(47,42,38,.92); font-size:13px; line-height:1.9}
+		.hoursLine span{color:rgba(111,98,88,.86)}
+		.sep{height:1px; background:linear-gradient(90deg, transparent, rgba(180,142,106,.55), rgba(95,70,54,.10), rgba(180,142,106,.45), transparent); opacity:.78; margin:14px 0}
+		.note{margin:0; font-size:12px; color:rgba(111,98,88,.74); line-height:1.7}
+
+		/* Aside */
+		.aside{
+			display:grid;
+			gap:12px;
+		}
+		.mini{
+			border-radius:22px;
+			padding:16px;
+			background:linear-gradient(180deg, rgba(250,248,245,.92), rgba(247,242,235,.78));
+			border:1px solid rgba(95,70,54,.12);
+			box-shadow:var(--shadowSoft);
+		}
+		.mini h3{
+			margin:0 0 8px;
+			font-size:11px;
+			letter-spacing:.22em;
+			text-transform:uppercase;
+			color:rgba(78,59,42,.78);
+			font-family:var(--accent);
+		}
+		.big{
+			margin:0;
+			font-family:var(--serif);
+			font-weight:600;
+			font-size:28px;
+			line-height:1.1;
+		}
+		.small{margin:8px 0 0;color:rgba(111,98,88,.86);font-size:13px;line-height:1.9}
+
+		/* Reveal */
+		.reveal{opacity:0;transform:translateY(14px);transition:opacity 1.25s var(--ease),transform 1.25s var(--ease)}
+		.reveal.is-visible{opacity:1;transform:translateY(0)}
+		@media (prefers-reduced-motion:reduce){
+			.reveal{opacity:1!important;transform:none!important;transition:none!important}
+			body::before{display:none}
+		}
+	</style>
+</head>
+<body>
+	<a class="skip" href="#main">Aller au contenu</a>
+
+	<header class="topbar">
+		<div class="container">
+			<div class="nav">
+				<a class="brand" href="accueil.html" aria-label="Accueil">
+					<img class="logo" src="logo.jpeg" alt="Logo Mufloi" />
+					<div>
+						<strong>La Loge de Léontine Académie</strong>
+						<span>Maison de soin • Rituels d’exception</span>
+					</div>
+				</a>
+
+				<nav class="navlinks" aria-label="Navigation principale">
+					<a href="accueil.html">Accueil</a>
+					<a href="prestations.html">Prestations</a>
+					<a href="horaires.html" aria-current="page">Horaires</a>
+					<a href="tarifs.html">Tarifs</a>
+					<a href="contact.html">Contact</a>
+					<a class="cta" href="contact.html">Prendre rendez-vous</a>
+				</nav>
+
+				<button class="burger" id="burger" aria-label="Ouvrir le menu" aria-controls="mobileMenu" aria-expanded="false">☰</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="mobileMenu" id="mobileMenu">
+		<div class="container" style="padding:12px 0 16px;">
+			<div style="display:grid; gap:10px;">
+				<a class="cta" href="accueil.html">Accueil</a>
+				<a class="cta" href="prestations.html">Prestations</a>
+				<a class="cta" href="horaires.html" aria-current="page">Horaires</a>
+				<a class="cta" href="tarifs.html">Tarifs</a>
+				<a class="cta" href="contact.html">Contact</a>
+				<a class="cta" href="contact.html">Prendre rendez-vous</a>
+			</div>
+		</div>
+	</div>
+
+	<main id="main">
+		<section class="hero">
+			<div class="container">
+				<div class="reveal">
+					<div class="kicker"><span class="dot" aria-hidden="true"></span><span>Informations pratiques • Disponibilités</span></div>
+					<h1>Nos horaires</h1>
+					<p class="subtitle">Des créneaux pensés pour vous accueillir sereinement. Pour réserver, utilisez Planity ou contactez directement par téléphone.</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" aria-label="Horaires d’ouverture">
+			<div class="container">
+				<div class="grid">
+					<!-- Bloc principal : cartes premium -->
+					<div class="shell reveal">
+						<div class="shellInner">
+							<h2 class="sectionTitle">Horaires d’ouverture</h2>
+							<p class="note" style="margin:0 0 14px"><strong>Exemple réaliste</strong> (à adapter) : lun–ven continu, samedi sur rendez-vous, dimanche fermé.</p>
+
+							<div class="cards" aria-label="Cartes horaires">
+								<!-- LUNDI -->
+								<article class="dayCard">
+									<div class="dayTop">
+										<h3 class="dayName">Lundi</h3>
+										<span class="badge badgeOpen">Ouvert</span>
+									</div>
+									<p class="hoursLine"><span>Matin :</span> 09:00 – 12:30<br><span>Après‑midi :</span> 14:00 – 19:00</p>
+								</article>
+
+								<!-- MARDI -->
+								<article class="dayCard">
+									<div class="dayTop">
+										<h3 class="dayName">Mardi</h3>
+										<span class="badge badgeOpen">Ouvert</span>
+									</div>
+									<p class="hoursLine"><span>Matin :</span> 09:00 – 12:30<br><span>Après‑midi :</span> 14:00 – 19:00</p>
+								</article>
+
+								<!-- MERCREDI -->
+								<article class="dayCard">
+									<div class="dayTop">
+										<h3 class="dayName">Mercredi</h3>
+										<span class="badge badgeOpen">Ouvert</span>
+									</div>
+									<p class="hoursLine"><span>Continu :</span> 10:00 – 18:00</p>
+								</article>
+
+								<!-- JEUDI -->
+								<article class="dayCard">
+									<div class="dayTop">
+										<h3 class="dayName">Jeudi</h3>
+										<span class="badge badgeOpen">Ouvert</span>
+									</div>
+									<p class="hoursLine"><span>Matin :</span> 09:00 – 12:30<br><span>Après‑midi :</span> 14:00 – 19:00</p>
+								</article>
+
+								<!-- VENDREDI -->
+								<article class="dayCard">
+									<div class="dayTop">
+										<h3 class="dayName">Vendredi</h3>
+										<span class="badge badgeOpen">Ouvert</span>
+									</div>
+									<p class="hoursLine"><span>Continu :</span> 09:00 – 17:30</p>
+								</article>
+
+								<!-- SAMEDI -->
+								<article class="dayCard">
+									<div class="dayTop">
+										<h3 class="dayName">Samedi</h3>
+										<span class="badge badgeOpen">Sur rendez‑vous</span>
+									</div>
+									<p class="hoursLine"><span>Créneaux :</span> 10:00 – 13:00<br><span>+ :</span> sur demande</p>
+								</article>
+
+								<!-- DIMANCHE -->
+								<article class="dayCard">
+									<div class="dayTop">
+										<h3 class="dayName">Dimanche</h3>
+										<span class="badge badgeClosed">Fermé</span>
+									</div>
+									<p class="hoursLine"><span>Statut :</span> fermé</p>
+								</article>
+							</div>
+
+							<div class="sep" aria-hidden="true"></div>
+							<p class="note"><strong>À RENSEIGNER :</strong> jours exacts, pauses, jours fériés, périodes de formation, etc.</p>
+						</div>
+					</div>
+
+					<!-- Aside : infos premium -->
+					<aside class="aside">
+						<div class="mini reveal" style="transition-delay:.04s">
+							<h3>Aujourd’hui (exemple)</h3>
+							<p class="big" id="todayLine">—</p>
+							<p class="small" id="todayHint">—</p>
+						</div>
+
+						<div class="mini reveal" style="transition-delay:.08s">
+							<h3>Informations</h3>
+							<p class="small">
+								<strong>Adresse :</strong> 1 rue de Bourgogne, 72210 La Suze-sur-Sarthe<br>
+								<strong>Téléphone :</strong> <a href="tel:+33685492726">06 85 49 27 26</a><br>
+								<strong>Réservation :</strong> Planity / SMS / appel
+							</p>
+							<p class="note">Les horaires peuvent varier selon les formations et les périodes.</p>
+						</div>
+
+						<div class="mini reveal" style="transition-delay:.12s">
+							<h3>Fermetures (exemple)</h3>
+							<p class="small">Fériés : <strong>sur annonce</strong><br>Congés : <strong>1 semaine en août</strong></p>
+							<p class="note"><strong>À RENSEIGNER :</strong> vos dates précises.</p>
+						</div>
+					</aside>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<script>
+		// Mobile menu
+		const burger = document.getElementById("burger");
+		const mobileMenu = document.getElementById("mobileMenu");
+		burger?.addEventListener("click", () => {
+			const isOpen = mobileMenu.style.display === "block";
+			mobileMenu.style.display = isOpen ? "none" : "block";
+			burger.setAttribute("aria-expanded", String(!isOpen));
+		});
+		mobileMenu?.querySelectorAll("a").forEach(a =>
+			a.addEventListener("click", () => {
+				mobileMenu.style.display = "none";
+				burger?.setAttribute("aria-expanded", "false");
+			})
+		);
+
+		// Reveal
+		const els = Array.from(document.querySelectorAll(".reveal"));
+		const io = new IntersectionObserver(
+			(entries) => {
+				for (const e of entries){
+					if (e.isIntersecting){
+						e.target.classList.add("is-visible");
+						io.unobserve(e.target);
+					}
+				}
+			},
+			{ threshold: 0.12 }
+		);
+		els.forEach(el => io.observe(el));
+
+		// Today line (exemple)
+		const schedule = [
+			{ d: 1, day: "Lundi", open: true, hint: "09:00–12:30 · 14:00–19:00" },
+			{ d: 2, day: "Mardi", open: true, hint: "09:00–12:30 · 14:00–19:00" },
+			{ d: 3, day: "Mercredi", open: true, hint: "10:00–18:00" },
+			{ d: 4, day: "Jeudi", open: true, hint: "09:00–12:30 · 14:00–19:00" },
+			{ d: 5, day: "Vendredi", open: true, hint: "09:00–17:30" },
+			{ d: 6, day: "Samedi", open: true, hint: "10:00–13:00 (sur rendez-vous)" },
+			{ d: 0, day: "Dimanche", open: false, hint: "Fermé" },
+		];
+		const now = new Date();
+		const item = schedule.find(x => x.d === now.getDay());
+		const line = document.getElementById("todayLine");
+		const hint = document.getElementById("todayHint");
+		if (item && line && hint){
+			line.textContent = `${item.day} — ${item.open ? "Ouvert" : "Fermé"}`;
+			hint.textContent = item.open ? `Aujourd’hui : ${item.hint}` : "Aujourd’hui : fermé";
+		}
+	</script>
+</body>
+</html>
