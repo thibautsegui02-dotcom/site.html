@@ -1,1347 +1,1081 @@
-<!doctype html>
+Voici le code réécrit **sans le bouton “Capturer”**.
+
+J’ai aussi simplifié la logique : maintenant, l’utilisateur utilise uniquement le bouton **“Prendre ou choisir une photo”**. Sur mobile, il pourra ouvrir directement l’appareil photo ou la galerie selon le navigateur.
+
+```html
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<title>La Loge de Léontine — Maison de soin de prestige</title>
-	<meta name="description" content="Maison de soin • Rituels d’exception • Facialiste & massages. La Suze-sur-Sarthe." />
-	<meta name="theme-color" content="#4E3B2A" />
+  <title>Les 18 ans d’Elisa</title>
 
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Playfair+Display:wght@500;600&family=Cinzel:wght@500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --rose-pale: #fff7f8;
+      --rose: #f4c7cf;
+      --rose-medium: #d98fa0;
+      --rose-deep: #9f4f62;
+      --champagne: #f8ead2;
+      --white: #ffffff;
+      --ink: #33242a;
+      --muted: #8b6f76;
+      --gold: #c9a45c;
+      --shadow-soft: 0 24px 70px rgba(159, 79, 98, 0.18);
+      --shadow-card: 0 18px 45px rgba(73, 37, 47, 0.14);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --serif: "Georgia", "Times New Roman", serif;
+      --sans: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
 
-	<style>
-		/* ============================
-		   La Loge de Léontine — Prestige V5
-		   Ultra premium / modern / luxury
-		   Repère : PRESTIGE_V5_2026-04-15
-		   ============================ */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-		:root{
-			/* Palette (obligatoire) — premium spa / beige & bois */
-			--ecru:#F7F2EB;
-			--offwhite:#FAF8F5;
-			--beigeLight:#EEE4D8;
-			--beigeSand:#DCC9B6;
-			--linen:#D2BFA7;
-			--taupeSoft:#9C8572;
-			--woodLight:#B48E6A;
-			--woodMid:#8A6A4F;
-			--woodDeep:#5F4636;
-			--text:#2F2A26;
-			--text2:#6F6258;
+    html {
+      scroll-behavior: smooth;
+    }
 
-			/* Tokens utilisés par le design */
-			--ink:var(--text);
-			--ink2:var(--text2);
-			--ivory:var(--offwhite);
-			--sand:var(--ecru);
-			--taupe:var(--beigeSand);
-			--muted:rgba(111,98,88,.78);
+    body {
+      min-height: 100vh;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(244, 199, 207, 0.55), transparent 34%),
+        radial-gradient(circle at top right, rgba(248, 234, 210, 0.75), transparent 28%),
+        linear-gradient(135deg, #fff9fa 0%, #f9edf0 44%, #fff6ef 100%);
+      overflow-x: hidden;
+    }
 
-			--champ:var(--offwhite);
-			--goldSoft:rgba(180,142,106,.16);
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.38) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.32) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), transparent 70%);
+      z-index: -1;
+    }
 
-			--stroke:rgba(95,70,54,.18);
-			--stroke2:rgba(95,70,54,.10);
-			--glass:rgba(250,248,245,.72);
-			--glass2:rgba(250,248,245,.56);
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-			/* Layout */
-			--container:1160px;
-			--gutter:24px;
-			--r:18px;
-			--r2:34px;
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
 
-			/* Shadow — plus légère et diffuse */
-			--shadow:0 32px 120px rgba(47,42,38,.22);
-			--shadowSoft:0 16px 55px rgba(47,42,38,.14);
+    button {
+      cursor: pointer;
+      border: none;
+    }
 
-			/* Type (obligatoire) */
-			--serif:"Cormorant Garamond","Playfair Display",serif; /* titres */
-			--sans:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; /* texte */
-			--accent:"Cinzel",serif; /* accent léger */
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 42px 0 70px;
+    }
 
-			/* Motion — plus lente et douce */
-			--ease:cubic-bezier(.2,.8,.2,1);
-			--dur:.34s;
-		}
+    .hero {
+      position: relative;
+      margin-bottom: 34px;
+      padding: 56px 28px 42px;
+      border: 1px solid rgba(201, 164, 92, 0.22);
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(255, 247, 248, 0.72)),
+        radial-gradient(circle at top right, rgba(217, 143, 160, 0.18), transparent 36%);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      text-align: center;
+    }
 
-		*{box-sizing:border-box}
-		html,body{height:100%}
-		body{
-			margin:0;
-			padding-top:74px;
-			font-family:var(--sans);
-			color:var(--ink);
-			background:
-				radial-gradient(1100px 640px at 18% -10%, rgba(180,142,106,.16), transparent 60%),
-				radial-gradient(980px 560px at 92% 8%, rgba(156,133,114,.20), transparent 62%),
-				radial-gradient(760px 420px at 55% 18%, rgba(250,248,245,.92), transparent 66%),
-				linear-gradient(180deg, var(--offwhite), var(--ecru) 56%, var(--beigeLight) 100%);
-			overflow-x:clip;
-			text-rendering:optimizeLegibility;
-			-webkit-font-smoothing:antialiased;
-			-moz-osx-font-smoothing:grayscale;
-		}
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(244, 199, 207, 0.5), rgba(248, 234, 210, 0.3));
+      filter: blur(1px);
+      z-index: 0;
+    }
 
-		/* Texture douce (papier/lin/bois très léger) */
-		body::before{
-			content:"";
-			position:fixed;inset:-35%;
-			background:
-				repeating-linear-gradient(90deg, rgba(78,59,42,.045) 0, rgba(78,59,42,.045) 1px, transparent 1px, transparent 12px),
-				repeating-linear-gradient(0deg, rgba(78,59,42,.030) 0, rgba(78,59,42,.030) 1px, transparent 1px, transparent 14px);
-			opacity:.14;
-			transform:rotate(-8deg);
-			pointer-events:none;
-			mix-blend-mode:multiply;
-		}
+    .hero::before {
+      width: 220px;
+      height: 220px;
+      left: -90px;
+      top: -80px;
+    }
 
-		a{color:inherit}
-		img{max-width:100%;height:auto;display:block}
+    .hero::after {
+      width: 170px;
+      height: 170px;
+      right: -70px;
+      bottom: -60px;
+    }
 
-		:focus-visible{outline:2px solid rgba(198,169,107,.60);outline-offset:3px}
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
 
-		.container{width:min(var(--container), calc(100% - (var(--gutter) * 2))); margin:0 auto}
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 9px 16px;
+      border: 1px solid rgba(201, 164, 92, 0.35);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.62);
+      color: var(--rose-deep);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
 
-		/* Intro (luxury opening) — DÉSACTIVÉE sur cette page */
+    .eyebrow::before,
+    .eyebrow::after {
+      content: "✦";
+      color: var(--gold);
+      font-size: 0.72rem;
+    }
 
-		/* Skip link (accessibility) */
-		.skip{
-			position:absolute;left:-999px;top:10px;
-			background:linear-gradient(135deg,var(--creme),rgba(198,169,107,.65));
-			color:var(--brownDeep);
-			padding:10px 14px;
-			border-radius:999px;
-			font-weight:800;
-			letter-spacing:.12em;
-			text-transform:uppercase;
-			z-index:999;
-		}
-		.skip:focus{left:12px}
+    h1 {
+      max-width: 840px;
+      margin: 0 auto 18px;
+      font-family: var(--serif);
+      font-size: clamp(3.1rem, 8vw, 7.2rem);
+      line-height: 0.94;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.045em;
+    }
 
-		/* ============================
-		   Topbar / Navigation
-		   ============================ */
-		.topbar{
-			position:fixed;top:0;left:0;right:0;z-index:60;
-			backdrop-filter: blur(18px) saturate(1.2);
-			-webkit-backdrop-filter: blur(18px) saturate(1.2);
-			background:
-				linear-gradient(180deg, rgba(255,255,255,.86), rgba(250,248,245,.72));
-			border-bottom:1px solid rgba(95,70,54,.10);
-			box-shadow:
-				0 10px 40px rgba(47,42,38,.06),
-				0 1px 0 rgba(255,255,255,.70) inset;
-		}
-		.nav{
-			display:flex;
-			align-items:center;
-			justify-content:space-between;
-			gap:14px;
-			padding:14px 0;
-		}
-		.brand{
-			display:flex;
-			gap:12px;
-			align-items:center;
-			min-width:240px;
-			text-decoration:none;
-		}
-		.brand{min-width:auto}
-		.logo{
-			width:56px;
-			height:56px;
-			border-radius:16px;
-			overflow:hidden;
-			object-fit:cover;
-			display:block;
-			background:transparent;
-			border:1px solid rgba(95,70,54,.12);
-			box-shadow: 0 10px 35px rgba(47,42,38,.10);
-		}
-		.brand strong{
-			font-family:var(--accent);
-			font-size:18px;
-			letter-spacing:.14em;
-			line-height:1;
-			font-weight:700;
-			text-transform:uppercase;
-		}
-		.brand span{
-			display:block;
-			margin-top:4px;
-			font-size:10.5px;
-			letter-spacing:.18em;
-			text-transform:uppercase;
-			color:rgba(138,106,79,.68);
-		}
+    .hero-title-accent {
+      display: block;
+      color: var(--rose-deep);
+      font-style: italic;
+    }
 
-		.navlinks{
-			display:flex;
-			align-items:center;
-			gap:18px;
-			padding:8px 10px;
-			border-radius:999px;
-			background:rgba(255,255,255,.55);
-			border:1px solid rgba(95,70,54,.10);
-			box-shadow:
-				0 12px 40px rgba(47,42,38,.06),
-				0 1px 0 rgba(255,255,255,.70) inset;
-		}
-		.navlinks a{
-			position:relative;
-			font-size:11px;
-			letter-spacing:.28em;
-			text-transform:uppercase;
-			color:rgba(47,42,38,.82);
-			padding:10px 12px;
-			border-radius:999px;
-			text-decoration:none;
-			transition:
-				transform var(--dur) var(--ease),
-				color var(--dur) var(--ease),
-				background var(--dur) var(--ease);
-		}
-		.navlinks a::after{
-			content:"";
-			position:absolute;
-			left:16px; right:16px; bottom:7px;
-			height:1px;
-			background:linear-gradient(90deg, transparent, rgba(198,169,107,.78), transparent);
-			opacity:0;
-			transform:translateY(4px);
-			transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
-		}
-		.navlinks a:hover{
-			background:rgba(250,248,245,.72);
-			transform:translateY(-1px);
-			color:rgba(47,42,38,1);
-			box-shadow:0 14px 46px rgba(47,42,38,.10);
-		}
-		.navlinks a:hover::after{opacity:.95; transform:translateY(0)}
-		.navlinks a[aria-current="page"]{
-			background:rgba(250,248,245,.92);
-			color:rgba(47,42,38,1);
-			border:1px solid rgba(180,142,106,.18);
-			box-shadow:0 14px 46px rgba(47,42,38,.08);
-		}
+    .hero-text {
+      max-width: 680px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      line-height: 1.8;
+    }
 
-		.cta{
-			display:inline-flex;align-items:center;justify-content:center;gap:10px;
-			padding:11px 16px;
-			border-radius:999px;
-			font-size:11px;
-			font-weight:900;
-			letter-spacing:.18em;
-			text-transform:uppercase;
-			color:var(--ink);
-			background:linear-gradient(135deg, rgba(255,255,255,.92), rgba(180,142,106,.28));
-			box-shadow:0 16px 70px rgba(47,42,38,.10);
-			border:1px solid rgba(180,142,106,.26);
-			transition:transform var(--dur) var(--ease), filter var(--dur) var(--ease);
-			white-space:nowrap;
-		}
-		.cta:hover{transform:translateY(-1px); filter:saturate(1.06)}
+    .hero-number {
+      display: inline-grid;
+      place-items: center;
+      width: 88px;
+      height: 88px;
+      margin: 28px auto 0;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(244, 199, 207, 0.58));
+      border: 1px solid rgba(201, 164, 92, 0.35);
+      box-shadow: 0 14px 35px rgba(159, 79, 98, 0.16);
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      color: var(--rose-deep);
+    }
 
-		/* Panier (haut de gamme, discret) */
-		.cartBtn{
-			display:inline-flex;align-items:center;justify-content:center;gap:10px;
-			width:48px;height:48px;border-radius:16px;
-			background:rgba(255,255,255,.62);
-			border:1px solid rgba(95,70,54,.12);
-			box-shadow:0 16px 70px rgba(47,42,38,.08);
-			cursor:pointer;
-			transition:transform var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease);
-		}
-		.cartBtn:hover{transform:translateY(-1px);background:rgba(255,255,255,.86);border-color:rgba(180,142,106,.22)}
-		.cartIcon{position:relative;line-height:1;font-size:18px;color:rgba(47,42,38,.90)}
-		.cartBadge{position:absolute;top:-8px;right:-10px;min-width:18px;height:18px;padding:0 6px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:linear-gradient(135deg, rgba(180,142,106,.92), rgba(198,169,107,.88));color:rgba(47,42,38,.92);font-size:10px;font-weight:900;letter-spacing:.06em;border:1px solid rgba(95,70,54,.18);box-shadow:0 18px 60px rgba(47,42,38,.18)}
+    .creation-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-bottom: 34px;
+    }
 
-		.burger{
-			display:none;
-			align-items:center;
-			justify-content:center;
-			width:46px;height:46px;
-			border-radius:14px;
-			background:rgba(255,255,255,.06);
-			border:1px solid rgba(255,255,255,.10);
-			color:rgba(247,242,234,.92);
-			font-size:18px;
-		}
+    .space {
+      padding: 26px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(18px);
+    }
 
-		@media (max-width:920px){
-			.navlinks{display:none}
-			.burger{display:inline-flex}
-		}
+    .space-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
 
-		.mobileMenu{
-			display:none;
-			border-bottom:1px solid rgba(78,59,42,.12);
-			background:rgba(250,248,244,.86);
-			backdrop-filter: blur(16px);
-		}
+    .space-icon {
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--rose), var(--champagne));
+      color: var(--rose-deep);
+      box-shadow: 0 12px 26px rgba(159, 79, 98, 0.16);
+      font-size: 1.2rem;
+    }
 
-		/* ============================
-		   Mobile polish
-		   ============================ */
-		@media (max-width:720px){
-			body{padding-top:82px}
-			h1{letter-spacing:.12em}
-			.subtitle{font-size:15.5px; line-height:1.9}
-			.nav{padding:14px 0}
-			.brand{min-width:0}
-			.brand strong{font-size:17px}
-			.brand span{font-size:11px; letter-spacing:.08em}
-			.cta{padding:10px 14px}
-			.hero{padding:62px 0 26px}
-			.hero-grid{gap:14px}
-			.panel{padding:14px; border-radius:28px}
-			.panel-inner{padding:16px}
-			.panel-title{font-size:22px}
-			.mini-gallery{grid-template-columns:repeat(3,1fr); gap:8px}
-			.trainer{padding:18px}
-			.trainer .name{font-size:24px}
-			.section{padding:40px 0}
-			.section-head{align-items:flex-start}
-			.section-head p{font-size:13.5px; line-height:1.9}
-			.imgFrame{border-radius:18px}
-			.ph{border-radius:14px}
-			.contact{padding:18px}
-			.form{gap:10px}
-			.legalbar{border-radius:18px}
-			.legalbar-inner{padding:14px}
-			.legalbar-links a{padding:8px 10px; font-size:10.5px; letter-spacing:.12em}
-		}
+    .space h2 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 1.75rem;
+      color: var(--ink);
+      letter-spacing: -0.03em;
+    }
 
-		@media (max-width:420px){
-			.kicker{font-size:11.5px}
-			.actions{gap:10px}
-			.btn{padding:11px 14px}
-		}
+    .space p {
+      margin-top: 5px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.96rem;
+    }
 
-		/* ============================
-		   Hero
-		   ============================ */
-		.hero{padding:112px 0 52px}
-		.hero-grid{display:grid; grid-template-columns:1.08fr .92fr; gap:34px; align-items:start}
-		@media (max-width:980px){
-			.hero{padding:74px 0 34px}
-			.hero-grid{grid-template-columns:1fr; gap:18px}
-		}
+    .camera-box {
+      position: relative;
+      min-height: 340px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(255, 247, 248, 0.96), rgba(248, 234, 210, 0.58));
+      border: 1px dashed rgba(159, 79, 98, 0.28);
+    }
 
-		.kicker{
-			display:inline-flex;align-items:center;gap:10px;
-			padding:9px 12px;border-radius:999px;
-			background:rgba(250,248,245,.84);
-			border:1px solid rgba(95,70,54,.10);
-			color:rgba(111,98,88,.86);
-			font-size:12px;
-		}
-		.dot{width:8px;height:8px;border-radius:999px;background:linear-gradient(135deg,var(--offwhite),rgba(180,142,106,.92));box-shadow:0 0 0 4px rgba(180,142,106,.14)}
+    .camera-placeholder,
+    .preview-image {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+    }
 
-		h1{
-			font-family:var(--serif);
-			font-weight:600;
-			font-size:clamp(44px,5.1vw,86px);
-			line-height:.98;
-			margin:18px 0 12px;
-			letter-spacing:.2px;
-			text-shadow:0 26px 130px rgba(47,42,38,.22);
-		}
-		.subtitle{
-			color:rgba(111,98,88,.86);
-			font-size:16.5px;
-			line-height:2.0;
-			max-width:66ch;
-			margin:0 0 22px;
-		}
+    .preview-image {
+      display: none;
+    }
 
-		.actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:12px}
-		.btn{
-			display:inline-flex;align-items:center;justify-content:center;gap:10px;
-			padding:12px 16px;border-radius:999px;
-			font-size:11px;font-weight:900;
-			letter-spacing:.18em;text-transform:uppercase;
-			border:1px solid rgba(95,70,54,.18);
-			background:rgba(250,248,245,.78);
-			color:rgba(47,42,38,.92);
-			transition:transform var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease), filter var(--dur) var(--ease);
-		}
-		.btn:hover{transform:translateY(-1px);background:rgba(250,248,245,.92);border-color:rgba(180,142,106,.28);filter:saturate(1.01)}
-		.btn.primary{color:var(--ink);background:linear-gradient(135deg,var(--offwhite),rgba(180,142,106,.42));border-color:rgba(180,142,106,.34)}
-		/* CTA rendez-vous — premium, discret, parfaitement intégré */
-		.btn.booking{
-			position:relative;
-			color:rgba(47,42,38,.96);
-			background:
-				linear-gradient(180deg, rgba(250,248,245,.86), rgba(250,248,245,.62));
-			border-color:rgba(180,142,106,.30);
-			box-shadow:
-				0 18px 80px rgba(47,42,38,.10),
-				0 1px 0 rgba(255,255,255,.72) inset;
-		}
-		.btn.booking::after{
-			content:"";
-			position:absolute; inset:-1px;
-			border-radius:999px;
-			background:linear-gradient(135deg, rgba(198,169,107,.55), rgba(180,142,106,.18), rgba(255,255,255,0));
-			opacity:.0;
-			transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
-			transform:translateY(2px);
-			pointer-events:none;
-		}
-		.btn.booking:hover{
-			transform:translateY(-2px);
-			border-color:rgba(198,169,107,.44);
-			filter:saturate(1.02);
-		}
-		.btn.booking:hover::after{opacity:.85; transform:translateY(0)}
+    .camera-placeholder {
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      text-align: center;
+      color: var(--muted);
+    }
 
-		.hr{
-			margin:30px 0 0;
-			height:1px;
-			background:linear-gradient(90deg, transparent, rgba(180,142,106,.55), rgba(95,70,54,.10), rgba(180,142,106,.45), transparent);
-			opacity:.78;
-		}
+    .placeholder-inner {
+      max-width: 330px;
+    }
 
-		/* Prestige panel / gallery */
-		.panel{
-			border-radius:var(--r2);
-			background:
-				radial-gradient(1000px 380px at 22% 6%, rgba(180,142,106,.14), transparent 56%),
-				linear-gradient(180deg, rgba(250,248,245,.76), rgba(250,248,245,.34));
-			border:1px solid rgba(95,70,54,.12);
-			box-shadow:var(--shadow);
-			padding:18px;
-			position:relative;
-			overflow:hidden;
-		}
-		.panel::before{
-			content:"";
-			position:absolute;inset:-2px;
-			background:linear-gradient(135deg, rgba(244,231,200,.22), rgba(199,163,93,.07), rgba(255,255,255,.00));
-			pointer-events:none;
-			mask:linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
-			-webkit-mask:linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
-			padding:1px;
-			border-radius:var(--r2);
-		}
-		.panel-inner{
-			border-radius:22px;
-			background:rgba(250,248,245,.82);
-			border:1px solid rgba(95,70,54,.12);
-			padding:20px;
-			position:relative;
-		}
-		.panel-title{margin:0 0 10px;font-family:var(--serif);font-weight:600;font-size:24px}
-		.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-		.badge{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(111,98,88,.86);padding:8px 10px;border-radius:999px;background:rgba(250,248,245,.78);border:1px solid rgba(95,70,54,.10)}
+    .placeholder-symbol {
+      display: grid;
+      place-items: center;
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--rose-deep);
+      font-size: 2rem;
+      box-shadow: inset 0 0 0 1px rgba(201, 164, 92, 0.18);
+    }
 
-		/* Images — cohérentes, légères, premium (zoom doux + masque arrondi) */
-		.imgFrame{margin-top:14px;border-radius:22px;overflow:hidden;border:1px solid rgba(78,59,42,.16);box-shadow:var(--shadowSoft);background:rgba(250,248,244,.65)}
-		.imgFrame img{width:100%;height:100%;display:block;object-fit:cover;transform:scale(1.01);transition:transform 1.2s var(--ease), filter 1.2s var(--ease)}
-		.imgFrame:hover img{transform:scale(1.06);filter:saturate(1.04)}
-		.hero-photo{aspect-ratio:16/10}
-		.mini-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-		.ph{aspect-ratio:4/3;border-radius:16px;overflow:hidden;border:1px solid rgba(78,59,42,.14);background:rgba(250,248,244,.65)}
-		.ph img{width:100%;height:100%;display:block;object-fit:cover;transform:scale(1.01);transition:transform 1.2s var(--ease), filter 1.2s var(--ease)}
-		.ph:hover img{transform:scale(1.07);filter:saturate(1.05)}
-		.note{margin-top:12px;font-size:12px;color:rgba(196,185,172,.94);line-height:1.7}
+    .placeholder-inner strong {
+      display: block;
+      margin-bottom: 8px;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 1.45rem;
+      color: var(--ink);
+    }
 
-		/* ============================
-		   Sections
-		   ============================ */
+    .photo-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
 
-		/* Formatrice (confiance / humain) */
-		.trainer{
-			border-radius:var(--r2);
-			padding:28px;
-			background:linear-gradient(180deg, rgba(250,248,244,.88), rgba(245,241,235,.72));
-			border:1px solid rgba(78,59,42,.14);
-			box-shadow:var(--shadowSoft);
-		}
-		.trainerGrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px;align-items:center}
-		@media (max-width:980px){.trainerGrid{grid-template-columns:1fr}}
-		.trainer .name{font-family:var(--serif);font-weight:600;font-size:28px;margin:0 0 6px;color:var(--brownDeep)}
-		.trainer .role{margin:0 0 12px;letter-spacing:.18em;text-transform:uppercase;font-size:11px;color:rgba(78,59,42,.72);font-family:var(--accent)}
-		.trainer .text{margin:0;color:rgba(78,59,42,.76);line-height:2.0}
-		.trainerQuote{margin-top:14px;padding:14px 16px;border-radius:18px;background:rgba(198,169,107,.10);border:1px solid rgba(198,169,107,.22);color:rgba(78,59,42,.86)}
-		.trainerQuote .mark{font-family:var(--serif);font-size:26px;line-height:1;margin-right:8px;color:rgba(198,169,107,.95)}
-		.signatureLine{margin-top:14px;height:1px;background:linear-gradient(90deg, transparent, rgba(198,169,107,.70), rgba(78,59,42,.10), rgba(198,169,107,.55), transparent)}
-		.section{padding:56px 0}
-		.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:18px}
-		.section h2{
-			margin:0;
-			font-family:var(--serif);
-			font-weight:600;
-			font-size:clamp(30px,3.2vw,48px);
-			line-height:1.03;
-			text-shadow:0 18px 90px rgba(0,0,0,.52);
-		}
-		.section-head p{margin:0;color:var(--muted);max-width:72ch;line-height:2.0;font-size:14px}
+    .file-input {
+      display: none;
+    }
 
-		.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-		@media (max-width:980px){.grid-3{grid-template-columns:1fr}}
+    .field-group {
+      margin-bottom: 16px;
+    }
 
-		.card{
-			border-radius:var(--r);
-			background:linear-gradient(180deg, rgba(250,248,245,.92), rgba(247,242,235,.78));
-			border:1px solid rgba(95,70,54,.12);
-			padding:18px;
-			box-shadow:var(--shadowSoft);
-			transition:transform var(--dur) var(--ease), border-color var(--dur) var(--ease), filter var(--dur) var(--ease);
-		}
-		.card:hover{transform:translateY(-3px);border-color:rgba(180,142,106,.26);filter:saturate(1.01)}
-		.card h3{margin:0 0 8px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(247,242,234,.92)}
-		.card p{margin:0;color:rgba(111,98,88,.86);font-size:13px;line-height:1.9}
+    label {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--rose-deep);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
 
-		/* Avis clients — carrousel premium */
-		.reviews{
-			border-radius:var(--r2);
-			padding:18px;
-			background:
-				radial-gradient(1000px 380px at 22% 6%, rgba(180,142,106,.12), transparent 56%),
-				linear-gradient(180deg, rgba(250,248,245,.76), rgba(250,248,245,.34));
-			border:1px solid rgba(95,70,54,.12);
-			box-shadow:var(--shadow);
-			overflow:hidden;
-		}
-		.reviewsTop{
-			display:flex;
-			align-items:center;
-			justify-content:space-between;
-			gap:12px;
-			flex-wrap:wrap;
-			padding:4px 6px 12px;
-		}
-		.reviewNav{
-			display:flex;
-			align-items:center;
-			gap:10px;
-		}
-		.arrowBtn{
-			width:44px;height:44px;
-			border-radius:16px;
-			border:1px solid rgba(95,70,54,.12);
-			background:rgba(250,248,245,.78);
-			color:rgba(47,42,38,.88);
-			cursor:pointer;
-			box-shadow:0 16px 60px rgba(47,42,38,.06);
-			transition:transform var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease);
-		}
-		.arrowBtn:hover{transform:translateY(-1px);background:rgba(250,248,245,.92);border-color:rgba(180,142,106,.24)}
-		.arrowBtn:active{transform:translateY(0)}
-		.arrowBtn:disabled{opacity:.45;cursor:not-allowed;transform:none}
-		.arrowBtn span{display:inline-block;font-size:18px;line-height:1}
-		.gBadge{
-			display:inline-flex;
-			align-items:center;
-			gap:10px;
-			padding:9px 12px;
-			border-radius:999px;
-			background:rgba(250,248,245,.84);
-			border:1px solid rgba(95,70,54,.10);
-			color:rgba(111,98,88,.86);
-			font-size:12px;
-			letter-spacing:.02em;
-		}
-		.gDot{
-			width:8px;height:8px;border-radius:999px;
-			background:linear-gradient(135deg, rgba(198,169,107,.85), rgba(180,142,106,.38));
-			box-shadow:0 0 0 4px rgba(180,142,106,.12);
-		}
-		.gText{
-			font-family:var(--accent);
-			letter-spacing:.22em;
-			text-transform:uppercase;
-			font-weight:700;
-			font-size:10px;
-			color:rgba(111,98,88,.78);
-		}
-		.gMeta{
-			display:flex;
-			align-items:center;
-			gap:10px;
-			color:rgba(111,98,88,.86);
-		}
+    label.btn {
+      margin-bottom: 0;
+      text-transform: none;
+      letter-spacing: normal;
+    }
 
-		.stars{
-			letter-spacing:.12em;
-			font-size:12px;
-			color:rgba(198,169,107,.82);
-			text-shadow:0 10px 50px rgba(47,42,38,.18);
-		}
-		.gScore,.score{
-			font-family:var(--accent);
-			letter-spacing:.18em;
-			text-transform:uppercase;
-			font-size:10px;
-			color:rgba(111,98,88,.78);
-		}
+    textarea,
+    input[type="text"] {
+      width: 100%;
+      border: 1px solid rgba(159, 79, 98, 0.18);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
 
-		.reviewsTrack{
-			display:flex;
-			gap:12px;
-			overflow-x:auto;
-			overflow-y:hidden;
-			padding:6px 6px 12px;
-			scroll-snap-type:x mandatory;
-			scroll-behavior:smooth;
-			-webkit-overflow-scrolling:touch;
-			scrollbar-width:none;
-			cursor:grab;
-			touch-action:pan-y;
-			overscroll-behavior-x:contain;
-		}
-		.reviewsTrack::-webkit-scrollbar{display:none}
-		.reviewsTrack:active{cursor:grabbing}
+    textarea {
+      min-height: 196px;
+      resize: vertical;
+      padding: 18px;
+      line-height: 1.65;
+    }
 
-		.reviewCard{
-			flex:0 0 auto;
-			width:min(520px, 86vw);
-			scroll-snap-align:start;
-			border-radius:26px;
-			padding:18px 18px 16px;
-			background:rgba(250,248,245,.82);
-			border:1px solid rgba(95,70,54,.12);
-			box-shadow:var(--shadowSoft);
-			position:relative;
-		}
-		.reviewCard::before{
-			content:"“";
-			position:absolute;
-			top:14px; left:16px;
-			font-family:var(--serif);
-			font-size:42px;
-			line-height:1;
-			color:rgba(198,169,107,.30);
-			letter-spacing:0;
-			pointer-events:none;
-		}
-		.reviewHead{
-			display:flex;
-			align-items:flex-start;
-			justify-content:space-between;
-			gap:12px;
-			padding-left:18px; /* pour laisser respirer le guillemet */
-		}
-		.name{
-			font-family:var(--serif);
-			font-weight:600;
-			letter-spacing:.2px;
-			color:rgba(47,42,38,.92);
-			font-size:18px;
-		}
-		.source{
-			margin-top:3px;
-			font-size:11px;
-			letter-spacing:.18em;
-			text-transform:uppercase;
-			color:rgba(111,98,88,.72);
-			font-family:var(--accent);
-		}
-		.rating{
-			display:flex;
-			align-items:center;
-			gap:8px;
-			padding-top:2px;
-			white-space:nowrap;
-		}
-		.quote{
-			margin:12px 0 0;
-			color:rgba(111,98,88,.86);
-			line-height:2.0;
-			font-size:14px;
-			padding-left:18px;
-		}
+    input[type="text"] {
+      padding: 15px 17px;
+    }
 
-		.reviewsHint{
-			display:flex;
-			align-items:center;
-			justify-content:center;
-			gap:10px;
-			margin-top:2px;
-			color:rgba(111,98,88,.70);
-			font-size:11px;
-			letter-spacing:.18em;
-			text-transform:uppercase;
-			font-family:var(--accent);
-			opacity:.85;
-			user-select:none;
-		}
-		.reviewsHint .arrow{
-			font-size:16px;
-			letter-spacing:0;
-			color:rgba(198,169,107,.62);
-		}
-		.reviewsHint .dotSep{opacity:.6}
+    textarea:focus,
+    input[type="text"]:focus {
+      border-color: rgba(159, 79, 98, 0.48);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(244, 199, 207, 0.35);
+    }
 
-		@media (max-width:720px){
-			.reviews{padding:14px; border-radius:28px}
-			.reviewCard{padding:16px; border-radius:24px}
-			.reviewCard::before{top:12px; left:14px; font-size:38px}
-			.reviewHead,.quote{padding-left:16px}
-			.name{font-size:17px}
-			.quote{font-size:13.5px}
-		}
+    textarea::placeholder,
+    input::placeholder {
+      color: rgba(139, 111, 118, 0.72);
+    }
 
-		@media (prefers-reduced-motion:reduce){
-			.reviewsTrack{scroll-behavior:auto}
-		}
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 52px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+      user-select: none;
+      cursor: pointer;
+    }
 
-		/* Testimonials */
-		.testimonials{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:18px}
-		@media (max-width:980px){.testimonials{grid-template-columns:1fr}}
-		.quote{border-radius:24px;padding:18px;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.11)}
-		.quote p{margin:0;color:rgba(247,242,234,.92);line-height:1.9}
-		.quote .who{margin-top:10px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe)}
+    .btn:hover {
+      transform: translateY(-2px);
+    }
 
-		/* Horaires list refinement */
-		.hours{margin-top:10px}
+    .btn:active {
+      transform: translateY(0);
+    }
 
-		/* ============================
-		   Contact
-		   ============================ */
-		.contact{
-			border-radius:var(--r2);
-			padding:22px;
-			background:
-				radial-gradient(980px 340px at 12% 16%, rgba(180,142,106,.12), transparent 58%),
-				linear-gradient(180deg, rgba(250,248,245,.72), rgba(250,248,245,.30));
-			border:1px solid rgba(95,70,54,.12);
-			box-shadow:var(--shadow);
-		}
-		.form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-		@media (max-width:720px){.form{grid-template-columns:1fr}}
-		label{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-		input,textarea{width:100%;border-radius:14px;border:1px solid rgba(95,70,54,.14);background:rgba(250,248,245,.86);color:var(--ink);padding:12px 12px;outline:none}
-		input:focus,textarea:focus{border-color:rgba(180,142,106,.36);box-shadow:0 0 0 4px rgba(180,142,106,.10)}
-		textarea{min-height:120px;resize:vertical}
-		.full{grid-column:1/-1}
+    .btn-primary {
+      width: 100%;
+      min-height: 56px;
+      margin-top: 8px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--rose-deep), var(--rose-medium));
+      box-shadow: 0 18px 38px rgba(159, 79, 98, 0.26);
+    }
 
-		.footer{
-			padding:34px 0 56px;
-			color:rgba(47,42,38,.88);
-			font-size:12px;
-			background:linear-gradient(180deg, var(--beigeLight), var(--beigeSand));
-			border-top:1px solid rgba(95,70,54,.12);
-		}
-		.footer a{opacity:.95;text-decoration:none;color:rgba(47,42,38,.86);border-bottom:1px solid rgba(180,142,106,.30);transition:color var(--dur) var(--ease), border-color var(--dur) var(--ease)}
-		.footer a:hover{color:rgba(47,42,38,1);border-color:rgba(180,142,106,.55)}
+    .btn-secondary {
+      width: 100%;
+      color: var(--rose-deep);
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(159, 79, 98, 0.16);
+    }
 
-		/* Footer minimal — luxe discret */
-		.footerMinimal{
-			padding-top:18px;
-		}
-		.footerRule{
-			height:1px;
-			background:linear-gradient(90deg, transparent, rgba(180,142,106,.40), rgba(95,70,54,.12), rgba(180,142,106,.32), transparent);
-			opacity:.85;
-			margin:0 0 18px;
-		}
-		.footerCap{
-			font-family:var(--accent);
-			font-weight:700;
-			letter-spacing:.34em;
-			text-transform:uppercase;
-			font-size:10px;
-			color:rgba(111,98,88,.78);
-			margin:0 0 10px;
-		}
-		.footerRow{
-			display:flex;
-			align-items:center;
-			justify-content:space-between;
-			gap:16px;
-			flex-wrap:wrap;
-		}
-		.footerLegal{
-			display:flex;
-			gap:14px;
-			flex-wrap:wrap;
-			align-items:center;
-		}
-		.footerLegal a{
-			text-decoration:none;
-			border:1px solid rgba(95,70,54,.12);
-			background:rgba(250,248,245,.55);
-			padding:8px 12px;
-			border-radius:999px;
-			letter-spacing:.18em;
-			text-transform:uppercase;
-			font-size:10px;
-			color:rgba(78,59,42,.82);
-			box-shadow:0 16px 60px rgba(47,42,38,.06);
-			transition:transform var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
-		}
-		.footerLegal a:hover{
-			color:rgba(47,42,38,1);
-			border-color:rgba(180,142,106,.24);
-			background:rgba(250,248,245,.80);
-			transform:translateY(-1px);
-		}
-		.footerMeta{
-			color:rgba(111,98,88,.82);
-			letter-spacing:.02em;
-			line-height:1.7;
-		}
-		.footerMeta strong{
-			font-family:var(--serif);
-			font-weight:600;
-			letter-spacing:.2px;
-			color:rgba(47,42,38,.92);
-		}
+    .btn[disabled] {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
 
-		@media (max-width:720px){
-			.footerMinimal{padding-top:14px}
-			.footerRule{margin-bottom:14px}
-		}
+    .hint {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
 
-		/* ============================
-		   Reveal on scroll
-		   ============================ */
-		/* ============================
-		   Panier (mêmes styles que Prestations)
-		   ============================ */
-		.overlay{position:fixed;inset:0;background:rgba(47,42,38,.42);backdrop-filter: blur(8px);display:none;z-index:80}
-		.overlay.show{display:block}
-		.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px, 92vw);background:rgba(250,248,245,.92);border-left:1px solid rgba(95,70,54,.12);box-shadow: -28px 0 120px rgba(47,42,38,.22);transform:translateX(102%);transition:transform 520ms var(--ease);z-index:90;display:flex;flex-direction:column}
-		.drawer.show{transform:translateX(0)}
-		.drawerHead{padding:18px;border-bottom:1px solid rgba(95,70,54,.10);display:flex;align-items:center;justify-content:space-between;gap:12px}
-		.drawerHead strong{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(47,42,38,.88)}
-		.close{width:42px;height:42px;border-radius:14px;border:1px solid rgba(95,70,54,.12);background:rgba(250,248,245,.78);cursor:pointer;color:rgba(47,42,38,.88)}
-		.drawerBody{padding:18px;overflow:auto;flex:1}
-		.item{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid rgba(95,70,54,.08)}
-		.itemTitle{font-size:12px;line-height:1.5;color:rgba(47,42,38,.86)}
-		.qtyRow{display:flex;align-items:center;gap:10px;margin-top:8px}
-		.qtyBtn{width:34px;height:34px;border-radius:14px;border:1px solid rgba(95,70,54,.12);background:rgba(250,248,245,.78);cursor:pointer;color:rgba(47,42,38,.88)}
-		.qty{min-width:22px;text-align:center;font-weight:600}
-		.itemPrice{font-family:var(--serif);font-weight:600;color:rgba(47,42,38,.92)}
-		.drawerFoot{padding:18px;border-top:1px solid rgba(95,70,54,.10)}
-		.totalRow{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-		.totalRow span{color:rgba(111,98,88,.82)}
-		.totalRow strong{font-family:var(--serif);font-size:22px;color:rgba(47,42,38,.92)}
-		.small{margin-top:10px;font-size:12px;color:rgba(111,98,88,.82);line-height:1.7}
+    .status {
+      min-height: 22px;
+      margin-top: 12px;
+      color: var(--rose-deep);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
 
-		.btnMini{display:inline-flex;align-items:center;justify-content:center;padding:10px 12px;border-radius:999px;font-size:10.5px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(95,70,54,.18);background:rgba(250,248,245,.78);color:rgba(47,42,38,.92);cursor:pointer;transition:transform var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease)}
-		.btnMini:hover{transform:translateY(-1px);background:rgba(250,248,245,.92);border-color:rgba(180,142,106,.28)}
-		.btnMini.primary{background:linear-gradient(135deg,var(--offwhite),rgba(180,142,106,.42));border-color:rgba(180,142,106,.34)}
+    .gallery-section {
+      padding: 30px 0 0;
+    }
 
-		.reveal{opacity:0;transform:translateY(14px);transition:opacity 1.25s var(--ease),transform 1.25s var(--ease)}
-		.reveal.is-visible{opacity:1;transform:translateY(0)}
-		@media (prefers-reduced-motion:reduce){
-			.reveal{opacity:1!important;transform:none!important;transition:none!important}
-			.btn,.card,.ph,.navlinks a,.cta{transition:none!important}
-			body::before{display:none}
-		}
+    .gallery-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
 
-		::selection{ background: rgba(180,142,106,.22); }
-	</style>
+    .gallery-heading h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 400;
+      letter-spacing: -0.045em;
+      color: var(--ink);
+    }
+
+    .gallery-heading p {
+      max-width: 420px;
+      color: var(--muted);
+      line-height: 1.65;
+      text-align: right;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      padding: 38px 24px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(201, 164, 92, 0.22);
+      background: rgba(255, 255, 255, 0.54);
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .memory-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow-card);
+      animation: cardEnter 0.75s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
+    .memory-photo-wrap {
+      position: relative;
+      aspect-ratio: 4 / 4.6;
+      overflow: hidden;
+      background: var(--rose-pale);
+    }
+
+    .memory-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.55s ease;
+    }
+
+    .memory-card:hover .memory-photo {
+      transform: scale(1.045);
+    }
+
+    .memory-content {
+      position: relative;
+      z-index: 2;
+      padding: 22px 22px 24px;
+    }
+
+    .memory-content::before {
+      content: "“";
+      position: absolute;
+      top: -20px;
+      left: 18px;
+      font-family: var(--serif);
+      font-size: 4.8rem;
+      line-height: 1;
+      color: rgba(217, 143, 160, 0.23);
+      pointer-events: none;
+    }
+
+    .memory-message {
+      position: relative;
+      margin-bottom: 18px;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 1.14rem;
+      line-height: 1.55;
+      letter-spacing: -0.01em;
+      white-space: pre-wrap;
+    }
+
+    .memory-signature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--rose-deep);
+      font-weight: 800;
+      font-size: 0.94rem;
+    }
+
+    .memory-signature::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .memory-date {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    @keyframes cardEnter {
+      from {
+        opacity: 0;
+        transform: translateY(26px) scale(0.96);
+        filter: blur(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @media (max-width: 960px) {
+      .creation-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .gallery-heading p {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .page {
+        width: min(100% - 22px, 1180px);
+        padding-top: 20px;
+      }
+
+      .hero {
+        padding: 42px 20px 34px;
+        border-radius: 26px;
+      }
+
+      .eyebrow {
+        font-size: 0.68rem;
+        letter-spacing: 0.13em;
+      }
+
+      .hero-number {
+        width: 74px;
+        height: 74px;
+        font-size: 1.9rem;
+      }
+
+      .space {
+        padding: 20px;
+        border-radius: 22px;
+      }
+
+      .space-header {
+        flex-direction: column;
+      }
+
+      .camera-box,
+      .camera-placeholder,
+      .preview-image {
+        height: 300px;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">Souvenirs précieux</div>
 
-	<a class="skip" href="#main">Aller au contenu</a>
+        <h1>
+          Les 18 ans
+          <span class="hero-title-accent">d’Elisa</span>
+        </h1>
 
-	<header class="topbar">
-		<div class="container">
-			<div class="nav">
-				<a class="brand" href="accueil.html" aria-label="Accueil">
-					<div>
-						<strong>La Loge de Léontine</strong>
-						<span>Maison de soin • Rituels d’exception</span>
-					</div>
-				</a>
+        <p class="hero-text">
+          Une page douce et élégante pour capturer les sourires, les mots tendres
+          et les souvenirs de cette journée si spéciale.
+        </p>
 
-				<nav class="navlinks" aria-label="Navigation">
-					<a href="accueil.html" aria-current="page">Accueil</a>
-					<a href="prestationsperso.html">Prestations</a>
-					<a href="prestations.html">Se former</a>
-					<a href="offrir.html">Offrir</a>
-					<a href="contact.html">Contact et réservation</a>
-				</nav>
+        <div class="hero-number">18</div>
+      </div>
+    </section>
 
-				<button class="burger" id="burger" aria-label="Ouvrir le menu" aria-controls="mobileMenu" aria-expanded="false">☰</button>
-			</div>
-		</div>
-	</header>
+    <section class="creation-panel">
+      <article class="space">
+        <div class="space-header">
+          <div class="space-icon">📷</div>
+          <div>
+            <h2>Photo</h2>
+            <p>
+              Prenez une photo ou sélectionnez-en une depuis votre galerie.
+            </p>
+          </div>
+        </div>
 
-	<div class="mobileMenu" id="mobileMenu">
-		<div class="container" style="padding:12px 0 16px;">
-			<div style="display:grid; gap:10px;">
-				<a class="pill" href="accueil.html" aria-current="page">Accueil</a>
-				<a class="pill" href="prestationsperso.html">Prestations</a>
-				<a class="pill" href="prestations.html">Se former</a>
-				<a class="pill" href="offrir.html">Offrir</a>
-				<a class="pill" href="contact.html">Contact et réservation</a>
-				<a class="pill" href="contact.html">Prendre rendez-vous</a>
-			</div>
-		</div>
-	</div>
+        <div class="camera-box">
+          <div class="camera-placeholder" id="cameraPlaceholder">
+            <div class="placeholder-inner">
+              <div class="placeholder-symbol">✧</div>
+              <strong>Aucune photo sélectionnée</strong>
+              <span>Commencez par prendre ou importer une image.</span>
+            </div>
+          </div>
 
-	<main id="main">
-		<section id="top" class="hero">
-			<div class="container">
-				<div class="hero-grid">
-					<div class="reveal">
-						<div class="kicker"><span class="dot" aria-hidden="true"></span><span>Académie de formation • Bien‑être premium • Gestes d’excellence</span></div>
-						<h1>Une académie de formation en bien‑être, pensée pour l’excellence.</h1>
-						<p class="subtitle">À <strong>La Suze-sur-Sarthe</strong>, une praticienne experte — luxopunctrice, experte facialiste, masseuse certifiée et spécialiste head spa — transmet un savoir‑faire haut de gamme à travers des formations professionnelles : Équilibre lymphatique, Massage aux pierres chaudes, Luxopuncture, Massages ayurvédiques, Reboost musculaire et Head spa.</p>
+          <img
+            id="previewImage"
+            class="preview-image"
+            alt="Aperçu de la photo sélectionnée"
+          />
+        </div>
 
-						<div class="hr" aria-hidden="true"></div>
-						<p class="note" style="margin-top:16px">Adresse : <strong>1 rue de Bourgogne, 72210 La Suze-sur-Sarthe</strong>.</p>
-					</div>
+        <div class="photo-actions">
+          <label class="btn btn-secondary" for="fileInput">
+            Prendre ou choisir une photo
+          </label>
 
-					<div class="panel reveal" style="transition-delay:.08s">
-						<div class="panel-inner">
-							<h2 class="panel-title" style="margin:0 0 10px">Signature prestige</h2>
-							<div class="badges" aria-label="Points forts">
-								<span class="badge">Sur-mesure</span>
-								<span class="badge">Gestes experts</span>
-								<span class="badge">Rituels couture</span>
-							</div>
-							<div class="imgFrame hero-photo" aria-label="Photo d’ambiance spa">
-								<img
-									src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1400&q=72"
-									srcset="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1400&q=72 1400w"
-									sizes="(max-width: 980px) 100vw, 520px"
-									alt="Ambiance spa chaleureuse et apaisante"
-									loading="eager"
-									fetchpriority="high"
-								/>
-							</div>
-							<div class="mini-gallery" aria-label="Galerie">
-								<div class="ph">
-									<img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=70" alt="Détail bien-être : bougie et matières naturelles" loading="lazy" decoding="async" />
-								</div>
-								<div class="ph">
-									<img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=600&q=70" alt="Ambiance cocooning : serviettes et lumière douce" loading="lazy" decoding="async" />
-								</div>
-								<div class="ph">
-									<img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=600&q=70" alt="Détail sensoriel : huiles de massage et bois" loading="lazy" decoding="async" />
-								</div>
-							</div>
-							<p class="note">Astuce : remplace par tes propres photos (WebP) quand tu les auras, en gardant ces mêmes dimensions.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+          <input
+            class="file-input"
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            capture="environment"
+          />
+        </div>
 
-		<section class="section" aria-label="Présentation de la formatrice">
-			<div class="container">
-				<div class="trainer reveal">
-					<div class="trainerGrid">
-						<div>
-							<div class="imgFrame" style="margin-top:0; aspect-ratio: 1/1">
-								<img
-										src="logoo.webp"
-									alt="Logo Mufloi"
-									loading="lazy"
-									decoding="async"
-								/>
-							</div>
-						</div>
-						<div>
-							<h2 style="margin:0 0 4px; font-family:var(--serif)">Votre formatrice</h2>
-							<p class="name">À RENSEIGNER — Nom Prénom</p>
-							<p class="role">Formatrice en massage bien‑être</p>
-							<p class="text">À RENSEIGNER : quelques lignes sur le parcours (formations, spécialités), l’approche (écoute, précision du geste, transmission), et les valeurs (bienveillance, sécurité, exigence, qualité premium).</p>
-							<div class="signatureLine" aria-hidden="true"></div>
-							<div class="trainerQuote" role="note" aria-label="Citation">
-								<span class="mark">“</span>À RENSEIGNER : une phrase inspirante (calme, confiance, présence) qui reflète l’approche de la formation.
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+        <p class="hint">
+          Sur mobile, ce bouton peut ouvrir directement l’appareil photo ou votre galerie.
+        </p>
 
-		<section class="section" aria-label="Avis clients">
-			<div class="container">
-				<div class="section-head reveal" style="margin-bottom:14px">
-					<div>
-						<h2>Avis clients</h2>
-						<p>Une expérience premium, vécue et partagée. Des retours authentiques qui inspirent confiance.</p>
-					</div>
-				</div>
+        <p class="status" id="photoStatus" aria-live="polite"></p>
+      </article>
 
-				<div class="reviews reveal" aria-label="Carrousel d’avis">
-					<div class="reviewsTop" aria-label="Avis Google">
-						<div class="gBadge" aria-label="Google">
-							<span class="gDot" aria-hidden="true"></span>
-							<span class="gText">Avis de Google</span>
-						</div>
-						<div class="reviewNav" aria-label="Navigation des avis">
-							<div class="gMeta">
-								<span class="stars" aria-hidden="true">★★★★★</span>
-								<span class="gScore">5/5</span>
-							</div>
-							<button class="arrowBtn" id="reviewsPrev" type="button" aria-label="Avis précédent"><span aria-hidden="true">‹</span></button>
-							<button class="arrowBtn" id="reviewsNext" type="button" aria-label="Avis suivant"><span aria-hidden="true">›</span></button>
-						</div>
-					</div>
+      <article class="space">
+        <div class="space-header">
+          <div class="space-icon">💌</div>
+          <div>
+            <h2>Message</h2>
+            <p>
+              Écrivez quelques mots pour Elisa, ajoutez votre signature, puis créez
+              une carte souvenir.
+            </p>
+          </div>
+        </div>
 
-					<div class="reviewsTrack" id="reviewsTrack" tabindex="0" role="region" aria-label="Défilement horizontal des avis">
-						<article class="reviewCard" aria-label="Avis de Laure A">
-							<div class="reviewHead">
-								<div class="who">
-									<div class="name">Laure A</div>
-									<div class="source">Avis de Google</div>
-								</div>
-								<div class="rating" aria-label="5 sur 5">
-									<span class="stars" aria-hidden="true">★★★★★</span>
-									<span class="score">5/5</span>
-								</div>
-							</div>
-							<p class="quote">“Excellent, aujourd'hui j'ai pu tester le head spa, avec massages, crèmes, soins, un petit cocon où on se sent en sécurité pour se laisser aller...”</p>
-						</article>
+        <form id="memoryForm">
+          <div class="field-group">
+            <label for="messageInput">Votre message</label>
+            <textarea
+              id="messageInput"
+              placeholder="Elisa, pour tes 18 ans..."
+              required
+            ></textarea>
+          </div>
 
-						<article class="reviewCard" aria-label="Avis de Lucie B">
-							<div class="reviewHead">
-								<div class="who">
-									<div class="name">Lucie B</div>
-									<div class="source">Avis de Google</div>
-								</div>
-								<div class="rating" aria-label="5 sur 5">
-									<span class="stars" aria-hidden="true">★★★★★</span>
-									<span class="score">5/5</span>
-								</div>
-							</div>
-							<p class="quote">“L’accueil était extrêmement chaleureux. Caroline est une personne bienveillante et dont les massages sont parfaits...”</p>
-						</article>
+          <div class="field-group">
+            <label for="signatureInput">Signature</label>
+            <input
+              type="text"
+              id="signatureInput"
+              placeholder="Votre prénom"
+              required
+            />
+          </div>
 
-						<article class="reviewCard" aria-label="Avis de Marine Hervé">
-							<div class="reviewHead">
-								<div class="who">
-									<div class="name">Marine Hervé</div>
-									<div class="source">Avis de Google</div>
-								</div>
-								<div class="rating" aria-label="5 sur 5">
-									<span class="stars" aria-hidden="true">★★★★★</span>
-									<span class="score">5/5</span>
-								</div>
-							</div>
-							<p class="quote">“Quelle belle découverte !”</p>
-						</article>
+          <button class="btn btn-primary" type="submit" id="submitBtn">
+            Ajouter la carte souvenir
+          </button>
 
-						<article class="reviewCard" aria-label="Avis de ANGELIQUE LETOURNEL">
-							<div class="reviewHead">
-								<div class="who">
-									<div class="name">ANGELIQUE LETOURNEL</div>
-									<div class="source">Avis de Google</div>
-								</div>
-								<div class="rating" aria-label="5 sur 5">
-									<span class="stars" aria-hidden="true">★★★★★</span>
-									<span class="score">5/5</span>
-								</div>
-							</div>
-							<p class="quote">“Je recommande sans hésitation, très à l’écoute, fait tout pour qu’on se sente bien. La luxo je ne connaissais pas et trouve ça très bien et efficace et les petits massages aussi sont très bien.”</p>
-						</article>
+          <p class="status" id="formStatus" aria-live="polite"></p>
+        </form>
+      </article>
+    </section>
 
-						<article class="reviewCard" aria-label="Avis de Paul Tallon18">
-							<div class="reviewHead">
-								<div class="who">
-									<div class="name">Paul Tallon18</div>
-									<div class="source">Avis de Google</div>
-								</div>
-								<div class="rating" aria-label="5 sur 5">
-									<span class="stars" aria-hidden="true">★★★★★</span>
-									<span class="score">5/5</span>
-								</div>
-							</div>
-							<p class="quote">“Très bon moment passé, avec beaucoup de bienveillance et une mise à l’aise naturelle...”</p>
-						</article>
+    <section class="gallery-section">
+      <div class="gallery-heading">
+        <h2>Galerie des souvenirs</h2>
+        <p>
+          Les cartes sauvegardées apparaissent ici et restent visibles pour tous les invités.
+        </p>
+      </div>
 
-						<article class="reviewCard" aria-label="Avis de Cindy Corbillon">
-							<div class="reviewHead">
-								<div class="who">
-									<div class="name">Cindy Corbillon</div>
-									<div class="source">Avis de Google</div>
-								</div>
-								<div class="rating" aria-label="5 sur 5">
-									<span class="stars" aria-hidden="true">★★★★★</span>
-									<span class="score">5/5</span>
-								</div>
-							</div>
-							<p class="quote">“Moment de détente merveilleux !! Cadre chaleureux et douillet...”</p>
-						</article>
+      <div class="cards-grid" id="cardsGrid">
+        <div class="empty-state" id="emptyState">
+          Chargement des souvenirs...
+        </div>
+      </div>
+    </section>
+  </main>
 
-						<article class="reviewCard" aria-label="Avis de samantha lemaitre">
-							<div class="reviewHead">
-								<div class="who">
-									<div class="name">samantha lemaitre</div>
-									<div class="source">Avis de Google</div>
-								</div>
-								<div class="rating" aria-label="5 sur 5">
-									<span class="stars" aria-hidden="true">★★★★★</span>
-									<span class="score">5/5</span>
-								</div>
-							</div>
-							<p class="quote">“Le cadre, l’ambiance, le professionnalisme, les petits détails qui comptent, et surtout un savoir-faire réel...”</p>
-						</article>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-						<article class="reviewCard" aria-label="Avis de Morin">
-							<div class="reviewHead">
-								<div class="who">
-									<div class="name">Morin</div>
-									<div class="source">Avis de Google</div>
-								</div>
-								<div class="rating" aria-label="5 sur 5">
-									<span class="stars" aria-hidden="true">★★★★★</span>
-									<span class="score">5/5</span>
-								</div>
-							</div>
-							<p class="quote">“Je tiens à remercier Caroline pour le merveilleux massage que j’ai reçu aujourd’hui. C’était un moment de pure détente, et votre professionnalisme...”</p>
-						</article>
+  <script>
+    const SUPABASE_URL = "https://dxuvltiuseboofsaejqo.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_xnVHVeEHv4P7jJLXT2hlfA_tUD5EL4R";
 
-						<article class="reviewCard" aria-label="Avis de Sandra thiberge">
-							<div class="reviewHead">
-								<div class="who">
-									<div class="name">Sandra thiberge</div>
-									<div class="source">Avis de Google</div>
-								</div>
-								<div class="rating" aria-label="5 sur 5">
-									<span class="stars" aria-hidden="true">★★★★★</span>
-									<span class="score">5/5</span>
-								</div>
-							</div>
-							<p class="quote">“Toujours un plaisir de venir passer un moment de détente chez la loge de leontine...”</p>
-						</article>
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-						<article class="reviewCard" aria-label="Avis de Justine Morin">
-							<div class="reviewHead">
-								<div class="who">
-									<div class="name">Justine Morin</div>
-									<div class="source">Avis de Google</div>
-								</div>
-								<div class="rating" aria-label="5 sur 5">
-									<span class="stars" aria-hidden="true">★★★★★</span>
-									<span class="score">5/5</span>
-								</div>
-							</div>
-							<p class="quote">“Très belle expérience dans ce joli salon où l’ambiance y est très agréable et où les soins sont très bien réalisés ! Je recommande à 1000%, Caroline est une personne professionnelle et à l’écoute. Merci beaucoup”</p>
-						</article>
+    const fileInput = document.getElementById("fileInput");
+    const previewImage = document.getElementById("previewImage");
+    const cameraPlaceholder = document.getElementById("cameraPlaceholder");
+    const photoStatus = document.getElementById("photoStatus");
+    const formStatus = document.getElementById("formStatus");
+    const submitBtn = document.getElementById("submitBtn");
+    const memoryForm = document.getElementById("memoryForm");
+    const messageInput = document.getElementById("messageInput");
+    const signatureInput = document.getElementById("signatureInput");
+    const cardsGrid = document.getElementById("cardsGrid");
 
-						<article class="reviewCard" aria-label="Avis de Cindy">
-							<div class="reviewHead">
-								<div class="who">
-									<div class="name">Cindy</div>
-									<div class="source">Avis de Google</div>
-								</div>
-								<div class="rating" aria-label="5 sur 5">
-									<span class="stars" aria-hidden="true">★★★★★</span>
-									<span class="score">5/5</span>
-								</div>
-							</div>
-							<p class="quote">“Un endroit où l'on se sent apaisé et surtout en confiance. Pour ma part luxopuncture et luminotherapie m'ont séduite. Je recommande cet endroit et Caroline est à notre écoute et de très bons conseils.”</p>
-						</article>
-					</div>
+    let selectedPhoto = "";
+    let photoStatusTimeout = null;
+    let formStatusTimeout = null;
 
-					<div class="reviewsHint" aria-hidden="true">
-						<span class="arrow">‹</span>
-						<span>Faites glisser</span>
-						<span class="dotSep">•</span>
-						<span>Défilez</span>
-						<span class="arrow">›</span>
-					</div>
-				</div>
-			</div>
-		</section>
+    function showStatus(element, message, duration = 3200) {
+      element.textContent = message;
 
-		<section class="section" aria-label="Transition" style="padding:38px 0 0">
-			<div class="container">
-				<div class="signatureLine reveal" aria-hidden="true"></div>
-			</div>
-		</section>
+      if (element === photoStatus && photoStatusTimeout) {
+        clearTimeout(photoStatusTimeout);
+      }
 
-		<section class="section" aria-label="Galerie immersive">
-			<div class="container">
-				<div class="section-head reveal" style="margin-bottom:14px">
-					<div>
-						<h2>Galerie</h2>
-						<p>Une immersion sensorielle : lumière chaude, matières naturelles, gestes doux.</p>
-					</div>
-				</div>
+      if (element === formStatus && formStatusTimeout) {
+        clearTimeout(formStatusTimeout);
+      }
 
-				<div class="imgFrame reveal" style="aspect-ratio: 21/9; margin-top:0">
-					<img
-						src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1800&q=72"
-						srcset="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=900&q=70 900w, https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1800&q=72 1800w"
-						sizes="(max-width: 980px) 100vw, 1160px"
-						alt="Ambiance spa haut de gamme, chaleureuse et apaisante"
-						loading="lazy"
-						decoding="async"
-					/>
-				</div>
+      if (duration) {
+        const timeout = setTimeout(() => {
+          element.textContent = "";
+        }, duration);
 
-				<div class="mini-gallery" style="margin-top:14px" aria-label="Mosaïque spa">
-					<div class="ph reveal"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=700&q=70" alt="Massage bien-être : détente profonde" loading="lazy" decoding="async" /></div>
-					<div class="ph reveal" style="transition-delay:.03s"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=700&q=70" alt="Ambiance cocooning : serviettes et lumière douce" loading="lazy" decoding="async" /></div>
-					<div class="ph reveal" style="transition-delay:.06s"><img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=700&q=70" alt="Huiles de massage et matières naturelles" loading="lazy" decoding="async" /></div>
-					<div class="ph reveal"><img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=700&q=70" alt="Détail spa : bougies, lumière chaude" loading="lazy" decoding="async" /></div>
-					<div class="ph reveal" style="transition-delay:.03s"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=700&q=70" alt="Détail cocooning : tissus et douceur" loading="lazy" decoding="async" /></div>
-					<div class="ph reveal" style="transition-delay:.06s"><img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=700&q=70" alt="Pierres chaudes et huiles" loading="lazy" decoding="async" /></div>
-				</div>
-			</div>
-		</section>
+        if (element === photoStatus) {
+          photoStatusTimeout = timeout;
+        }
 
-	</main>
+        if (element === formStatus) {
+          formStatusTimeout = timeout;
+        }
+      }
+    }
 
-	<footer class="footer" role="contentinfo" aria-label="Pied de page">
-		<div class="container">
-			<div class="footerLux">
-				<div class="footerTop">
-					<div class="footerBrand" aria-label="La Loge de Léontine">
-						<div class="footerMark" aria-hidden="true"></div>
-						<div>
-							<div class="footerTitle">La Loge de Léontine</div>
-							<div class="footerTagline">Maison de soin • Rituels d’exception</div>
-						</div>
-					</div>
+    function escapeHTML(text) {
+      return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
 
-					<div class="footerCols" aria-label="Liens et informations">
-						<div class="footerCol" aria-label="Navigation">
-							<div class="footerCap">Navigation</div>
-							<div class="footerLinks">
-								<a href="accueil.html">Accueil</a>
-								<a href="prestations.html">Prestations</a>
-								<a href="contact.html">Contact & réservation</a>
-								<a href="connexion.html">Se connecter</a>
-							</div>
-						</div>
+    function formatDate(dateValue) {
+      return new Intl.DateTimeFormat("fr-FR", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      }).format(new Date(dateValue));
+    }
 
-						<div class="footerCol" aria-label="Informations">
-							<div class="footerCap">Coordonnées</div>
-							<div class="footerText">
-								<span>1 rue de Bourgogne, 72210 La Suze‑sur‑Sarthe</span><br>
-								<span>Lun–Sam • 9h–19h</span>
-							</div>
-							<div class="footerLinks" style="margin-top:10px">
-								<a href="tel:+33685492726">06 85 49 27 26</a>
-								<a href="mailto:thibautsegui02@gmail.com">thibautsegui02@gmail.com</a>
-							</div>
-						</div>
+    function showPhotoPreview(imageSource) {
+      selectedPhoto = imageSource;
 
-						<div class="footerCol" aria-label="Légal">
-							<div class="footerCap">Légal</div>
-							<div class="footerLinks">
-								<a href="mentions-legales.html">Mentions légales</a>
-								<a href="confidentialite.html">Confidentialité</a>
-								<a href="cgv.html">CGV</a>
-							</div>
-						</div>
-					</div>
-				</div>
+      previewImage.src = imageSource;
+      previewImage.style.display = "block";
+      cameraPlaceholder.style.display = "none";
 
-				<div class="footerDivider" aria-hidden="true"></div>
+      showStatus(photoStatus, "Photo ajoutée avec succès ✨");
+    }
 
-				<div class="footerBottom">
-					<div class="footerMeta">© <span id="year"></span> <strong>La Loge de Léontine</strong> — Tous droits réservés</div>
-					<div class="footerMeta"><a href="prestations.html">Retour aux prestations</a></div>
-				</div>
-			</div>
-		</div>
-	</footer>
+    function handleFileSelection(event) {
+      const file = event.target.files[0];
 
-	<script>
-		// Mobile menu (accessible)
-		const burger = document.getElementById("burger");
-		const mobileMenu = document.getElementById("mobileMenu");
+      if (!file) return;
 
-		burger?.addEventListener("click", () => {
-			const isOpen = mobileMenu.style.display === "block";
-			mobileMenu.style.display = isOpen ? "none" : "block";
-			burger.setAttribute("aria-expanded", String(!isOpen));
-		});
+      if (!file.type.startsWith("image/")) {
+        showStatus(photoStatus, "Veuillez choisir un fichier image.");
+        return;
+      }
 
-		mobileMenu?.querySelectorAll("a").forEach(a =>
-			a.addEventListener("click", () => {
-				mobileMenu.style.display = "none";
-				burger?.setAttribute("aria-expanded", "false");
-			})
-		);
+      const reader = new FileReader();
 
-		// Reveal on scroll (subtle)
-		const els = Array.from(document.querySelectorAll(".reveal"));
-		const io = new IntersectionObserver(
-			(entries) => {
-				for (const e of entries){
-					if (e.isIntersecting){
-						e.target.classList.add("is-visible");
-						io.unobserve(e.target);
-					}
-				}
-			},
-			{ threshold: 0.12 }
-		);
-		els.forEach(el => io.observe(el));
+      reader.onload = function () {
+        showPhotoPreview(reader.result);
+      };
 
-		const y = new Date().getFullYear();
-		document.getElementById("year").textContent = y;
+      reader.readAsDataURL(file);
+    }
 
-		// Avis clients — drag premium
-		(function reviewsDrag(){
-			const track = document.getElementById("reviewsTrack");
-			if (!track) return;
+    function dataURLToFile(dataUrl, fileName) {
+      const arr = dataUrl.split(",");
+      const mimeMatch = arr[0].match(/:(.*?);/);
 
-			let isDown = false;
-			let startX = 0;
-			let startScroll = 0;
+      if (!mimeMatch) {
+        throw new Error("Format d’image invalide.");
+      }
 
-			track.addEventListener("pointerdown", (e) => {
-				isDown = true;
-				track.setPointerCapture?.(e.pointerId);
-				startX = e.clientX;
-				startScroll = track.scrollLeft;
-			});
-			track.addEventListener("pointermove", (e) => {
-				if (!isDown) return;
-				e.preventDefault();
-				const dx = e.clientX - startX;
-				track.scrollLeft = startScroll - dx;
-			});
-			track.addEventListener("pointerup", () => { isDown = false; });
-			track.addEventListener("pointercancel", () => { isDown = false; });
-			track.addEventListener("mouseleave", () => { isDown = false; });
-		})();
+      const mime = mimeMatch[1];
+      const binary = atob(arr[1]);
+      let length = binary.length;
+      const uint8Array = new Uint8Array(length);
 
-		// Avis clients — navigation par flèches
-		(function reviewsArrows(){
-			const track = document.getElementById("reviewsTrack");
-			const prev = document.getElementById("reviewsPrev");
-			const next = document.getElementById("reviewsNext");
-			if (!track || !prev || !next) return;
+      while (length--) {
+        uint8Array[length] = binary.charCodeAt(length);
+      }
 
-			function cardStep(){
-				const card = track.querySelector(".reviewCard");
-				if (!card) return 420;
-				const styles = getComputedStyle(track);
-				const gap = parseFloat(styles.columnGap || styles.gap || "12") || 12;
-				return card.getBoundingClientRect().width + gap;
-			}
+      return new File([uint8Array], fileName, {
+        type: mime
+      });
+    }
 
-			function updateDisabled(){
-				const max = track.scrollWidth - track.clientWidth;
-				prev.disabled = track.scrollLeft <= 2;
-				next.disabled = track.scrollLeft >= (max - 2);
-			}
+    async function uploadPhotoToSupabase(photoDataUrl) {
+      const fileName = `photo-${Date.now()}-${Math.random()
+        .toString(36)
+        .substring(2)}.jpg`;
 
-			prev.addEventListener("click", () => {
-				track.scrollBy({ left: -cardStep(), behavior: "smooth" });
-			});
-			next.addEventListener("click", () => {
-				track.scrollBy({ left: cardStep(), behavior: "smooth" });
-			});
+      const photoFile = dataURLToFile(photoDataUrl, fileName);
 
-			track.addEventListener("scroll", updateDisabled, { passive: true });
-			window.addEventListener("resize", updateDisabled);
-			updateDisabled();
-		})();
+      const { error } = await supabaseClient.storage
+        .from("photos")
+        .upload(fileName, photoFile, {
+          cacheControl: "3600",
+          upsert: false
+        });
 
-	</script>
+      if (error) {
+        console.error("Erreur upload photo :", error);
+        throw new Error("La photo n’a pas pu être envoyée.");
+      }
+
+      const { data } = supabaseClient.storage
+        .from("photos")
+        .getPublicUrl(fileName);
+
+      return data.publicUrl;
+    }
+
+    async function saveMemoryToSupabase(photoUrl, message, signature) {
+      const { data, error } = await supabaseClient
+        .from("memories")
+        .insert([
+          {
+            photo_url: photoUrl,
+            message: message,
+            signature: signature
+          }
+        ])
+        .select()
+        .single();
+
+      if (error) {
+        console.error("Erreur sauvegarde souvenir :", error);
+        throw new Error("Le souvenir n’a pas pu être sauvegardé.");
+      }
+
+      return data;
+    }
+
+    function clearEmptyState() {
+      const emptyState = document.getElementById("emptyState");
+
+      if (emptyState) {
+        emptyState.remove();
+      }
+    }
+
+    function showEmptyState(message) {
+      cardsGrid.innerHTML = `
+        <div class="empty-state" id="emptyState">
+          ${escapeHTML(message)}
+        </div>
+      `;
+    }
+
+    function addMemoryCard(photo, message, signature, createdAt = new Date(), placement = "prepend") {
+      clearEmptyState();
+
+      const card = document.createElement("article");
+      card.className = "memory-card";
+
+      card.innerHTML = `
+        <div class="memory-photo-wrap">
+          <img
+            class="memory-photo"
+            src="${escapeHTML(photo)}"
+            alt="Souvenir pour les 18 ans d’Elisa"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="memory-content">
+          <p class="memory-message">${escapeHTML(message)}</p>
+          <div class="memory-signature">${escapeHTML(signature)}</div>
+          <div class="memory-date">${formatDate(createdAt)}</div>
+        </div>
+      `;
+
+      if (placement === "append") {
+        cardsGrid.append(card);
+      } else {
+        cardsGrid.prepend(card);
+      }
+    }
+
+    async function loadMemoriesFromSupabase() {
+      try {
+        const { data, error } = await supabaseClient
+          .from("memories")
+          .select("*")
+          .order("created_at", {
+            ascending: false
+          });
+
+        if (error) {
+          console.error("Erreur chargement souvenirs :", error);
+          showEmptyState("Impossible de charger les souvenirs. Vérifiez la configuration Supabase.");
+          return;
+        }
+
+        if (!data || data.length === 0) {
+          showEmptyState("Aucune carte pour le moment. Ajoutez une photo et un message pour créer le premier souvenir d’Elisa.");
+          return;
+        }
+
+        cardsGrid.innerHTML = "";
+
+        data.forEach((memory) => {
+          addMemoryCard(
+            memory.photo_url,
+            memory.message,
+            memory.signature,
+            memory.created_at,
+            "append"
+          );
+        });
+      } catch (error) {
+        console.error("Erreur Supabase :", error);
+        showEmptyState("Une erreur est survenue pendant le chargement des souvenirs.");
+      }
+    }
+
+    function resetFormAfterSubmit() {
+      selectedPhoto = "";
+
+      memoryForm.reset();
+      fileInput.value = "";
+
+      previewImage.removeAttribute("src");
+      previewImage.style.display = "none";
+      cameraPlaceholder.style.display = "grid";
+    }
+
+    async function handleFormSubmit(event) {
+      event.preventDefault();
+
+      const message = messageInput.value.trim();
+      const signature = signatureInput.value.trim();
+
+      if (!selectedPhoto) {
+        showStatus(formStatus, "Ajoutez d’abord une photo pour créer la carte.");
+        return;
+      }
+
+      if (!message) {
+        showStatus(formStatus, "Écrivez un message pour Elisa.");
+        messageInput.focus();
+        return;
+      }
+
+      if (!signature) {
+        showStatus(formStatus, "Ajoutez une signature.");
+        signatureInput.focus();
+        return;
+      }
+
+      try {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Envoi en cours...";
+
+        showStatus(formStatus, "Envoi de la photo et sauvegarde du souvenir...", 0);
+
+        const photoUrl = await uploadPhotoToSupabase(selectedPhoto);
+
+        const savedMemory = await saveMemoryToSupabase(
+          photoUrl,
+          message,
+          signature
+        );
+
+        addMemoryCard(
+          savedMemory.photo_url,
+          savedMemory.message,
+          savedMemory.signature,
+          savedMemory.created_at,
+          "prepend"
+        );
+
+        showStatus(formStatus, "Souvenir ajouté avec succès ✨");
+
+        resetFormAfterSubmit();
+      } catch (error) {
+        console.error(error);
+
+        showStatus(
+          formStatus,
+          "Erreur : le souvenir n’a pas pu être sauvegardé. Vérifiez Supabase.",
+          7000
+        );
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Ajouter la carte souvenir";
+      }
+    }
+
+    fileInput.addEventListener("change", handleFileSelection);
+    memoryForm.addEventListener("submit", handleFormSubmit);
+
+    loadMemoriesFromSupabase();
+  </script>
 </body>
 </html>
+```
