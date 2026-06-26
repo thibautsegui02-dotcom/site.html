@@ -1,0 +1,1040 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Madérothérapie — Formation | La Loge de Léontine</title>
+	<meta name="description" content="Formation professionnelle en ligne — Madérothérapie. Expérience premium, accès immédiat après paiement sécurisé." />
+	<meta name="theme-color" content="#4E3B2A" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Cinzel:wght@500;600&display=swap" rel="stylesheet" />
+
+	<style>
+		/* ============================
+		   La Loge de Léontine — Page produit premium (Formation)
+		   Repère : PRESTIGE_V6_PRODUCT_2026-04-25
+		   ============================ */
+
+		:root{
+			--ecru:#F7F2EB;
+			--offwhite:#FAF8F5;
+			--beigeLight:#EEE4D8;
+			--beigeSand:#DCC9B6;
+			--linen:#D2BFA7;
+			--taupeSoft:#9C8572;
+			--woodLight:#B48E6A;
+			--woodMid:#8A6A4F;
+			--woodDeep:#5F4636;
+			--text:#2F2A26;
+			--text2:#6F6258;
+
+			--ink:var(--text);
+			--ink2:var(--text2);
+			--ivory:var(--offwhite);
+			--sand:var(--ecru);
+			--taupe:var(--beigeSand);
+			--muted:rgba(111,98,88,.78);
+
+			--stroke:rgba(95,70,54,.18);
+			--stroke2:rgba(95,70,54,.10);
+			--glass:rgba(250,248,245,.72);
+			--glass2:rgba(250,248,245,.56);
+
+			--container:1160px;
+			--gutter:24px;
+			--r:18px;
+			--r2:34px;
+
+			--shadow:0 32px 120px rgba(47,42,38,.22);
+			--shadowSoft:0 16px 55px rgba(47,42,38,.14);
+
+			--serif:"Cormorant Garamond","Playfair Display",serif;
+			--sans:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+			--accent:"Cinzel",serif;
+
+			--ease:cubic-bezier(.2,.8,.2,1);
+			--dur:.34s;
+		}
+
+		*{box-sizing:border-box}
+		html,body{height:100%}
+		body{
+			margin:0;
+			padding-top:74px;
+			font-family:var(--sans);
+			color:var(--ink);
+			background:
+				radial-gradient(1100px 640px at 18% -10%, rgba(180,142,106,.16), transparent 60%),
+				radial-gradient(980px 560px at 92% 8%, rgba(156,133,114,.20), transparent 62%),
+				radial-gradient(760px 420px at 55% 18%, rgba(250,248,245,.92), transparent 66%),
+				linear-gradient(180deg, var(--offwhite), var(--ecru) 56%, var(--beigeLight) 100%);
+			overflow-x:hidden;
+			text-rendering:optimizeLegibility;
+			-webkit-font-smoothing:antialiased;
+			-moz-osx-font-smoothing:grayscale;
+		}
+
+		body::before{
+			content:"";
+			position:fixed;inset:-35%;
+			background:
+				repeating-linear-gradient(90deg, rgba(78,59,42,.045) 0, rgba(78,59,42,.045) 1px, transparent 1px, transparent 12px),
+				repeating-linear-gradient(0deg, rgba(78,59,42,.030) 0, rgba(78,59,42,.030) 1px, transparent 1px, transparent 14px);
+			opacity:.14;
+			transform:rotate(-8deg);
+			pointer-events:none;
+			mix-blend-mode:multiply;
+		}
+
+		a{color:inherit}
+		img{max-width:100%;height:auto;display:block}
+		.container{width:min(var(--container), calc(100% - (var(--gutter) * 2))); margin:0 auto}
+		:focus-visible{outline:2px solid rgba(198,169,107,.60);outline-offset:3px}
+		::selection{ background: rgba(180,142,106,.22); }
+
+		/* Skip link (accessibility) */
+		.skip{
+			position:absolute;left:-999px;top:10px;
+			background:linear-gradient(135deg,var(--offwhite),rgba(198,169,107,.65));
+			color:var(--woodDeep);
+			padding:10px 14px;
+			border-radius:999px;
+			font-weight:800;
+			letter-spacing:.12em;
+			text-transform:uppercase;
+			z-index:999;
+			text-decoration:none;
+		}
+		.skip:focus{left:12px}
+
+		/* ============================
+		   Topbar / Navigation
+		   ============================ */
+		.topbar{
+			position:fixed;top:0;left:0;right:0;z-index:60;
+			backdrop-filter: blur(18px) saturate(1.2);
+			-webkit-backdrop-filter: blur(18px) saturate(1.2);
+			background:
+				linear-gradient(180deg, rgba(255,255,255,.86), rgba(250,248,245,.72));
+			border-bottom:1px solid rgba(95,70,54,.10);
+			box-shadow:
+				0 10px 40px rgba(47,42,38,.06),
+				0 1px 0 rgba(255,255,255,.70) inset;
+		}
+		.nav{
+			display:flex;
+			align-items:center;
+			justify-content:space-between;
+			gap:14px;
+			padding:14px 0;
+		}
+		.brand{
+			display:flex;
+			gap:12px;
+			align-items:center;
+			min-width:240px;
+			text-decoration:none;
+		}
+		.brand{min-width:auto}
+		.logo{
+			width:56px;
+			height:56px;
+			border-radius:16px;
+			overflow:hidden;
+			object-fit:cover;
+			display:block;
+			background:transparent;
+			border:1px solid rgba(95,70,54,.12);
+			box-shadow: 0 10px 35px rgba(47,42,38,.10);
+		}
+		.brand strong{
+			font-family:var(--accent);
+			font-size:18px;
+			letter-spacing:.14em;
+			line-height:1;
+			font-weight:700;
+			text-transform:uppercase;
+		}
+		.brand span{
+			display:block;
+			margin-top:4px;
+			font-size:10.5px;
+			letter-spacing:.18em;
+			text-transform:uppercase;
+			color:rgba(138,106,79,.68);
+		}
+
+		.navlinks{
+			display:flex;
+			align-items:center;
+			gap:18px;
+			padding:8px 10px;
+			border-radius:999px;
+			background:rgba(255,255,255,.55);
+			border:1px solid rgba(95,70,54,.10);
+			box-shadow:
+				0 12px 40px rgba(47,42,38,.06),
+				0 1px 0 rgba(255,255,255,.70) inset;
+		}
+		.navlinks a{
+			position:relative;
+			font-size:11px;
+			letter-spacing:.28em;
+			text-transform:uppercase;
+			color:rgba(47,42,38,.82);
+			padding:10px 12px;
+			border-radius:999px;
+			text-decoration:none;
+			transition:
+				transform var(--dur) var(--ease),
+				color var(--dur) var(--ease),
+				background var(--dur) var(--ease);
+		}
+		.navlinks a::after{
+			content:"";
+			position:absolute;
+			left:16px; right:16px; bottom:7px;
+			height:1px;
+			background:linear-gradient(90deg, transparent, rgba(198,169,107,.78), transparent);
+			opacity:0;
+			transform:translateY(4px);
+			transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+		}
+		.navlinks a:hover{
+			background:rgba(250,248,245,.72);
+			transform:translateY(-1px);
+			color:rgba(47,42,38,1);
+			box-shadow:0 14px 46px rgba(47,42,38,.10);
+		}
+		.navlinks a:hover::after{opacity:.95; transform:translateY(0)}
+		.navlinks a[aria-current="page"]{
+			background:rgba(250,248,245,.92);
+			color:rgba(47,42,38,1);
+			border:1px solid rgba(180,142,106,.18);
+			box-shadow:0 14px 46px rgba(47,42,38,.08);
+		}
+
+		.burger{
+			display:none;
+			align-items:center;
+			justify-content:center;
+			width:46px;height:46px;
+			border-radius:14px;
+			background:rgba(255,255,255,.06);
+			border:1px solid rgba(255,255,255,.10);
+			color:rgba(247,242,234,.92);
+			font-size:18px;
+		}
+
+		@media (max-width:920px){
+			.navlinks{display:none}
+			.burger{display:inline-flex}
+		}
+
+		.mobileMenu{
+			display:none;
+			border-bottom:1px solid rgba(78,59,42,.12);
+			background:rgba(250,248,244,.86);
+			backdrop-filter: blur(16px);
+		}
+
+		/* Page */
+		.section{padding:68px 0}
+		@media (max-width:720px){body{padding-top:82px}.section{padding:54px 0}}
+
+		/* Hero */
+		.hero{
+			display:grid;
+			grid-template-columns: 1.1fr .9fr;
+			gap:18px;
+			align-items:stretch;
+		}
+		@media (max-width:980px){.hero{grid-template-columns:1fr}}
+
+		.heroMedia{
+			border-radius:var(--r2);
+			overflow:hidden;
+			border:1px solid rgba(95,70,54,.12);
+			box-shadow:var(--shadow);
+			background:
+				radial-gradient(620px 220px at 26% 20%, rgba(180,142,106,.18), transparent 62%),
+				linear-gradient(180deg, rgba(250,248,245,.78), rgba(245,241,235,.62));
+			min-height:520px;
+			position:relative;
+		}
+		@media (max-width:980px){.heroMedia{min-height:420px}}
+		.heroMedia img{width:100%;height:100%;object-fit:cover;filter:saturate(1.02) contrast(1.02)}
+		.heroMedia::after{
+			content:"";
+			position:absolute;inset:0;
+			background:linear-gradient(180deg, rgba(47,42,38,.00), rgba(47,42,38,.08) 55%, rgba(47,42,38,.18));
+			pointer-events:none;
+		}
+		.heroCard{
+			border-radius:var(--r2);
+			background:linear-gradient(180deg, rgba(250,248,245,.92), rgba(247,242,235,.78));
+			border:1px solid rgba(95,70,54,.12);
+			box-shadow:var(--shadowSoft);
+			padding:22px;
+			display:flex;
+			flex-direction:column;
+			justify-content:center;
+		}
+
+		h1{
+			font-family:var(--serif);
+			font-weight:600;
+			font-size:clamp(34px,4.4vw,56px);
+			line-height:1.03;
+			margin:0 0 10px;
+			letter-spacing:.2px;
+			text-shadow:0 26px 130px rgba(47,42,38,.12)
+		}
+		.kicker{
+			font-size:11px;
+			letter-spacing:.26em;
+			text-transform:uppercase;
+			color:rgba(78,59,42,.78);
+			font-weight:900;
+		}
+		.lead{color:var(--muted);line-height:2.05;margin:10px 0 16px;font-size:14px}
+
+		.btn{
+			display:inline-flex;
+			align-items:center;
+			justify-content:center;
+			gap:10px;
+			padding:12px 16px;
+			border-radius:999px;
+			font-size:11px;
+			font-weight:900;
+			letter-spacing:.18em;
+			text-transform:uppercase;
+			color:var(--ink);
+			background:linear-gradient(135deg,var(--offwhite),rgba(180,142,106,.48));
+			box-shadow:0 16px 70px rgba(47,42,38,.12);
+			border:1px solid rgba(180,142,106,.38);
+			transition:transform var(--dur) var(--ease), filter var(--dur) var(--ease);
+			cursor:pointer;
+			white-space:nowrap;
+			text-decoration:none;
+		}
+		.btn:hover{transform:translateY(-1px); filter:saturate(1.06)}
+		.btn.secondary{
+			background:rgba(250,248,245,.72);
+			border:1px solid rgba(95,70,54,.16);
+			box-shadow:0 16px 70px rgba(47,42,38,.10);
+		}
+		.btn:active{transform:translateY(0)}
+		.btn:focus-visible{outline:2px solid rgba(198,169,107,.60); outline-offset:4px}
+
+		/* Sections */
+		.block{
+			margin-top:18px;
+			border-radius:var(--r2);
+			background:rgba(250,248,245,.72);
+			border:1px solid rgba(95,70,54,.12);
+			box-shadow:var(--shadowSoft);
+			padding:22px;
+		}
+		.block h2{
+			margin:0 0 10px;
+			font-family:var(--serif);
+			font-weight:600;
+			font-size:26px;
+			letter-spacing:.2px;
+			color:rgba(47,42,38,.92)
+		}
+		.block p{margin:0;color:rgba(111,98,88,.86);line-height:2.0}
+
+		.prose{max-width:72ch;margin:0 auto;text-align:left}
+		.prose p{font-size:14px;letter-spacing:.01em}
+
+		.expLine{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:14px}
+		.expWord{
+			display:inline-flex;align-items:center;justify-content:center;
+			padding:10px 14px;border-radius:999px;
+			border:1px solid rgba(95,70,54,.14);
+			background:rgba(250,248,245,.58);
+			font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+			color:rgba(78,59,42,.86);font-weight:900;
+			transition:transform var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+		}
+		.expWord:hover{transform:translateY(-1px);background:rgba(250,248,245,.78);border-color:rgba(180,142,106,.26)}
+
+		.grid4{display:grid;grid-template-columns:repeat(4, 1fr);gap:12px;margin-top:14px}
+		@media (max-width:980px){.grid4{grid-template-columns:repeat(2, 1fr)}}
+		@media (max-width:520px){.grid4{grid-template-columns:1fr}}
+		.miniCard{
+			border-radius:22px;border:1px solid rgba(95,70,54,.12);
+			background:linear-gradient(180deg, rgba(250,248,245,.82), rgba(250,248,245,.56));
+			padding:14px 14px;min-height:86px;display:flex;flex-direction:column;justify-content:center;gap:8px;
+			transition:transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+		}
+		.miniCard:hover{transform:translateY(-2px);border-color:rgba(180,142,106,.24)}
+		.miniCard .cap{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(78,59,42,.78);font-weight:900}
+		.miniCard .txt{font-size:14px;line-height:1.65;color:rgba(47,42,38,.88)}
+
+		.immersion{
+			margin-top:18px;border-radius:var(--r2);overflow:hidden;
+			border:1px solid rgba(95,70,54,.12);box-shadow:var(--shadowSoft);
+			position:relative;min-height:420px;background:rgba(250,248,245,.70);
+		}
+		@media (max-width:720px){.immersion{min-height:360px}}
+		.immersion img{width:100%;height:100%;object-fit:cover;filter:saturate(1.02) contrast(1.03)}
+		.immersion::after{
+			content:"";position:absolute;inset:0;
+			background:linear-gradient(90deg, rgba(47,42,38,.22), rgba(47,42,38,.00) 55%),
+				linear-gradient(180deg, rgba(47,42,38,.00), rgba(47,42,38,.20) 80%, rgba(47,42,38,.24));
+			pointer-events:none;
+		}
+		.immersionText{
+			position:absolute;left:22px; right:22px;bottom:20px;
+			max-width:68ch;color:rgba(250,248,245,.96);
+			text-shadow:0 24px 120px rgba(47,42,38,.55);
+		}
+		.immersionText .label{font-size:10px;letter-spacing:.26em;text-transform:uppercase;font-weight:900;opacity:.92}
+		.immersionText p{margin:10px 0 0;font-family:var(--serif);font-size:22px;line-height:1.25;letter-spacing:.2px}
+		@media (max-width:720px){.immersionText p{font-size:20px}}
+
+		.ctaWrap{
+			margin-top:18px;border-radius:var(--r2);
+			background:rgba(250,248,245,.72);border:1px solid rgba(95,70,54,.12);
+			box-shadow:var(--shadowSoft);
+			padding:22px;text-align:center;
+		}
+		.ctaNote{margin-top:10px;font-size:12px;color:rgba(111,98,88,.82);letter-spacing:.04em}
+		.ctaLine{display:flex;justify-content:center;margin-top:14px}
+
+		/* Cart drawer (identique) */
+		.overlay{position:fixed;inset:0;background:rgba(47,42,38,.42);backdrop-filter: blur(8px);display:none;z-index:80}
+		.overlay.show{display:block}
+		.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px, 92vw);background:rgba(250,248,245,.92);border-left:1px solid rgba(95,70,54,.12);box-shadow: -28px 0 120px rgba(47,42,38,.22);transform:translateX(102%);transition:transform 520ms var(--ease);z-index:90;display:flex;flex-direction:column}
+		.drawer.show{transform:translateX(0)}
+		.drawerHead{padding:18px;border-bottom:1px solid rgba(95,70,54,.10);display:flex;align-items:center;justify-content:space-between;gap:12px}
+		.drawerHead strong{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(47,42,38,.88)}
+		.close{width:42px;height:42px;border-radius:14px;border:1px solid rgba(95,70,54,.12);background:rgba(250,248,245,.78);cursor:pointer;color:rgba(47,42,38,.88)}
+		.drawerBody{padding:18px;overflow:auto;flex:1}
+		.item{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid rgba(95,70,54,.08)}
+		.itemTitle{font-size:12px;line-height:1.5;color:rgba(47,42,38,.86)}
+		.qtyRow{display:flex;align-items:center;gap:10px;margin-top:8px}
+		.qtyBtn{width:34px;height:34px;border-radius:14px;border:1px solid rgba(95,70,54,.12);background:rgba(250,248,245,.78);cursor:pointer;color:rgba(47,42,38,.88)}
+		.qty{min-width:22px;text-align:center;font-weight:600}
+		.itemPrice{font-family:var(--serif);font-weight:600;color:rgba(47,42,38,.92)}
+		.drawerFoot{padding:18px;border-top:1px solid rgba(95,70,54,.10)}
+		.totalRow{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+		.totalRow span{color:rgba(111,98,88,.82)}
+		.totalRow strong{font-family:var(--serif);font-size:22px;color:rgba(47,42,38,.92)}
+		.small{margin-top:10px;font-size:12px;color:rgba(111,98,88,.82);line-height:1.7}
+
+		/* ============================
+		   Footer — luxe discret
+		   ============================ */
+		.footer{
+			padding:38px 0 58px;
+			color:rgba(47,42,38,.90);
+			font-size:12px;
+			background:
+				radial-gradient(900px 260px at 18% 10%, rgba(180,142,106,.10), transparent 60%),
+				linear-gradient(180deg, var(--beigeLight), var(--beigeSand));
+			border-top:1px solid rgba(95,70,54,.12);
+		}
+		.footer a{
+			opacity:.96;
+			text-decoration:none;
+			color:rgba(47,42,38,.88);
+			border-bottom:1px solid rgba(180,142,106,.26);
+			transition:color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--ease), background var(--dur) var(--ease);
+		}
+		.footer a:hover{
+			color:rgba(47,42,38,1);
+			border-color:rgba(180,142,106,.55);
+		}
+
+		.footerTop{
+			display:flex;
+			align-items:flex-start;
+			justify-content:space-between;
+			gap:16px;
+			flex-wrap:wrap;
+		}
+		.footerBrand{
+			display:flex;
+			align-items:center;
+			gap:12px;
+		}
+		.footerMark{
+			width:42px;height:42px;border-radius:16px;
+			background:
+				radial-gradient(16px 16px at 30% 30%, rgba(255,255,255,.22), transparent 60%),
+				linear-gradient(135deg, rgba(255,255,255,.88), rgba(180,142,106,.70));
+			border:1px solid rgba(95,70,54,.12);
+			box-shadow:0 18px 70px rgba(47,42,38,.10);
+			flex:0 0 auto;
+		}
+		.footerTitle{
+			font-family:var(--serif);
+			font-weight:600;
+			letter-spacing:.2px;
+			font-size:16px;
+			line-height:1.15;
+		}
+		.footerTagline{
+			margin-top:4px;
+			font-size:11px;
+			letter-spacing:.14em;
+			text-transform:uppercase;
+			color:rgba(111,98,88,.80);
+		}
+		.footerLinks{
+			display:flex;
+			gap:10px;
+			flex-wrap:wrap;
+			align-items:center;
+			justify-content:flex-start;
+			margin-top:12px;
+		}
+		.footerLinks a{
+			display:inline-flex;
+			align-items:center;
+			justify-content:center;
+			padding:9px 12px;
+			border-radius:999px;
+			border:1px solid rgba(95,70,54,.12);
+			background:rgba(250,248,245,.58);
+			color:rgba(47,42,38,.88);
+			font-size:11px;
+			letter-spacing:.14em;
+			text-transform:uppercase;
+			border-bottom:none;
+		}
+		.footerLinks a:hover{
+			transform:translateY(-1px);
+			background:rgba(250,248,245,.80);
+			border-color:rgba(180,142,106,.22);
+		}
+
+		.footerDivider{
+			margin-top:16px;
+			height:1px;
+			background:linear-gradient(90deg, transparent, rgba(180,142,106,.45), rgba(95,70,54,.12), rgba(180,142,106,.35), transparent);
+			opacity:.9;
+		}
+
+		.footerBottom{
+			margin-top:14px;
+			display:flex;
+			align-items:center;
+			justify-content:space-between;
+			gap:12px;
+			flex-wrap:wrap;
+			color:rgba(111,98,88,.82);
+			letter-spacing:.02em;
+		}
+		.footerMeta strong{
+			font-family:var(--serif);
+			font-weight:600;
+			letter-spacing:.2px;
+			color:rgba(47,42,38,.92);
+		}
+
+		@media (max-width:720px){
+			.footer{padding:32px 0 52px}
+			.footerLinks a{padding:8px 10px; font-size:10.5px; letter-spacing:.12em}
+			.footerMark{width:40px;height:40px;border-radius:14px}
+		}
+
+		/* Reveal */
+		.reveal{opacity:0;transform:translateY(14px);transition:opacity 1.25s var(--ease),transform 1.25s var(--ease)}
+		.reveal.is-visible{opacity:1;transform:translateY(0)}
+		@media (prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;transition:none!important}}
+	</style>
+</head>
+<body>
+	<a class="skip" href="#main">Aller au contenu</a>
+	<header class="topbar">
+		<div class="container">
+			<div class="nav">
+				<a class="brand" href="accueil.html" aria-label="Accueil" onclick="return goHomeWithCart(event)">
+					<div>
+						<strong>La Loge de Léontine</strong>
+						<span>Maison de soin • Rituels d’exception</span>
+					</div>
+				</a>
+
+				<nav class="navlinks" aria-label="Navigation">
+					<a href="accueil.html" onclick="return goHomeWithCart(event)">Accueil</a>
+					<a href="prestations.html" onclick="return goPrestationsWithCart(event)">Prestations</a>
+					<a href="contact.html" onclick="return goContactWithCart(event)">Contact et réservation</a>
+					<a href="connexion.html">Se connecter</a>
+				</nav>
+
+				<button class="burger" id="burger" aria-label="Ouvrir le menu" aria-controls="mobileMenu" aria-expanded="false">☰</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="mobileMenu" id="mobileMenu">
+		<div class="container" style="padding:12px 0 16px;">
+			<div style="display:grid; gap:10px;">
+				<a class="pill" href="accueil.html" onclick="return goHomeWithCart(event)">Accueil</a>
+				<a class="pill" href="prestations.html" onclick="return goPrestationsWithCart(event)">Prestations</a>
+				<a class="pill" href="contact.html" onclick="return goContactWithCart(event)">Contact et réservation</a>
+				<a class="pill" href="connexion.html">Se connecter</a>
+			</div>
+		</div>
+	</div>
+
+	<main id="main">
+		<section class="section">
+			<div class="container">
+
+				<div class="hero reveal">
+					<div class="heroMedia" aria-label="Photo d'ambiance">
+						<!-- Remplace cette image par une vraie photo pro (madérothérapie / bois / silhouette / luxe). -->
+						<img src="images/maderotherapie.jpg" alt="Madérothérapie — ambiance spa" loading="eager" />
+					</div>
+
+					<div class="heroCard">
+						<div class="kicker">Formation professionnelle en ligne</div>
+						<h1>MADÉROTHÉRAPIE</h1>
+						<p class="lead">Initiez-vous à une technique structurée et précise, où l’outil devient signature : gestes maîtrisés, rythme, zones ciblées — pour une expérience premium dédiée à la silhouette.</p>
+						<p class="lead" style="margin-top:6px"><span style="display:inline-block;padding:10px 14px;border-radius:999px;border:1px solid rgba(180,142,106,.34);background:rgba(250,248,245,.72);font-family:var(--serif);font-size:28px;letter-spacing:.2px;color:rgba(47,42,38,.92)"><strong>149€</strong></span></p>
+
+						<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px">
+							<a class="btn" href="https://buy.stripe.com/CHANGER_CE_LIEN" target="_blank" rel="noopener">Payer et accéder à la formation</a>
+
+						</div>
+						<div class="ctaNote" style="text-align:left; margin-top:10px">Paiement sécurisé – accès immédiat</div>
+					</div>
+				</div>
+
+				<section class="block reveal" aria-label="Présentation">
+					<h2>Présentation</h2>
+					<div class="prose">
+						<p>La madérothérapie est une méthode très recherchée, reconnue pour son travail ciblé, sa précision et sa forte valeur perçue. Cette formation vous transmet un protocole clair et premium : prise en main des outils, repères de pression et d’angles, tempo, transitions et enchaînements par zones. L’objectif : proposer une expérience professionnelle, sûre et élégante — efficace, rassurante, et parfaitement intégrable à une carte “silhouette” haut de gamme.</p>
+					</div>
+				</section>
+
+				<section class="block reveal" aria-label="Expérience">
+					<h2>Expérience</h2>
+					<div class="expLine" aria-label="Mots clés">
+						<span class="expWord">Précision</span>
+						<span class="expWord">Silhouette</span>
+						<span class="expWord">Rythme</span>
+						<span class="expWord">Tonique</span>
+					</div>
+				</section>
+
+				<section class="block reveal" aria-label="Expertise">
+					<h2>Expertise</h2>
+					<div class="grid4" role="list">
+						<div class="miniCard" role="listitem">
+							<div class="cap">Outils</div>
+							<div class="txt">Prise en main</div>
+						</div>
+						<div class="miniCard" role="listitem">
+							<div class="cap">Gestuelle</div>
+							<div class="txt">Angles & pression</div>
+						</div>
+						<div class="miniCard" role="listitem">
+							<div class="cap">Zones</div>
+							<div class="txt">Travail structuré</div>
+						</div>
+						<div class="miniCard" role="listitem">
+							<div class="cap">Cadre</div>
+							<div class="txt">Approche professionnelle</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="reveal" aria-label="Immersion visuelle">
+					<div class="immersion">
+						<img src="images/maderotherapie.jpg" alt="Ambiance soin silhouette haut de gamme" loading="lazy" />
+						<div class="immersionText">
+							<div class="label">Un moment rare</div>
+							<p>Une technique précise, un tempo maîtrisé, une sensation de travail “juste” — pour une expérience premium qui se ressent et se voit.</p>
+						</div>
+					</div>
+				</section>
+
+				<section class="ctaWrap reveal" aria-label="Accès">
+					<h2 style="margin-bottom:6px">Accéder à la formation</h2>
+					<div class="ctaLine">
+						<a class="btn" href="https://buy.stripe.com/CHANGER_CE_LIEN" target="_blank" rel="noopener">Payer et accéder à la formation</a>
+					</div>
+					<div class="ctaLine" style="margin-top:10px">
+						<button class="btn secondary" type="button" onclick="addToCartTraining()">Ajouter au panier</button>
+					</div>
+					<div class="ctaNote">Paiement sécurisé – accès immédiat</div>
+				</section>
+
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer" role="contentinfo" aria-label="Pied de page">
+		<div class="container">
+			<div class="footerLux">
+				<div class="footerTop">
+					<div class="footerBrand" aria-label="La Loge de Léontine">
+						<div class="footerMark" aria-hidden="true"></div>
+						<div>
+							<div class="footerTitle">La Loge de Léontine</div>
+							<div class="footerTagline">Maison de soin • Rituels d’exception</div>
+						</div>
+					</div>
+
+					<div class="footerCols" aria-label="Liens et informations">
+						<div class="footerCol" aria-label="Navigation">
+							<div class="footerCap">Navigation</div>
+							<div class="footerLinks">
+								<a href="accueil.html" onclick="return goHomeWithCart(event)">Accueil</a>
+								<a href="prestations.html" onclick="return goPrestationsWithCart(event)">Prestations</a>
+								<a href="contact.html" onclick="return goContactWithCart(event)">Contact & réservation</a>
+								<a href="connexion.html">Se connecter</a>
+							</div>
+						</div>
+
+						<div class="footerCol" aria-label="Coordonnées">
+							<div class="footerCap">Coordonnées</div>
+							<div class="footerText">
+								<span>1 rue de Bourgogne, 72210 La Suze‑sur‑Sarthe</span><br>
+								<span>Lun–Sam • 9h–19h</span>
+							</div>
+							<div class="footerLinks" style="margin-top:10px">
+								<a href="tel:+33685492726">06 85 49 27 26</a>
+								<a href="mailto:thibautsegui02@gmail.com">thibautsegui02@gmail.com</a>
+							</div>
+						</div>
+
+						<div class="footerCol" aria-label="Légal">
+							<div class="footerCap">Légal</div>
+							<div class="footerLinks">
+								<a href="mentions-legales.html">Mentions légales</a>
+								<a href="confidentialite.html">Confidentialité</a>
+								<a href="cgv.html">CGV</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="footerDivider" aria-hidden="true"></div>
+
+				<div class="footerBottom">
+					<div class="footerMeta">© <span id="year"></span> <strong>La Loge de Léontine</strong> — Tous droits réservés</div>
+					<div class="footerMeta"><a href="prestations.html" onclick="return goPrestationsWithCart(event)" style="border-bottom:1px solid rgba(180,142,106,.26)">Retour aux prestations</a></div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<div class="overlay" id="overlay" onclick="closeCart()" aria-hidden="true"></div>
+	<aside class="drawer" id="drawer" aria-label="Panier" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+		<div class="drawerHead">
+			<strong id="drawerTitle">Votre panier</strong>
+			<button class="close" type="button" onclick="closeCart()" aria-label="Fermer">✕</button>
+		</div>
+		<div class="drawerBody" id="cartItems"></div>
+		<div class="drawerFoot">
+			<div class="totalRow">
+				<span>Total</span>
+				<strong id="cartTotal">0€</strong>
+			</div>
+			<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px">
+				<button class="btn secondary" type="button" onclick="closeCart()">Continuer</button>
+				<button class="btn" type="button" onclick="checkout()">Commander</button>
+			</div>
+			<div class="small">Paiement simulé • Branche Stripe ensuite.</div>
+		</div>
+	</aside>
+
+	<script>
+		document.getElementById("year").textContent = new Date().getFullYear();
+		const y = new Date().getFullYear();
+		const yl = document.getElementById("yearLegal");
+		if (yl) yl.textContent = y;
+
+		// Mobile menu
+		const burger = document.getElementById("burger");
+		const mobileMenu = document.getElementById("mobileMenu");
+		burger?.addEventListener("click", () => {
+			const isOpen = mobileMenu.style.display === "block";
+			mobileMenu.style.display = isOpen ? "none" : "block";
+			burger.setAttribute("aria-expanded", String(!isOpen));
+		});
+		mobileMenu?.querySelectorAll("a").forEach(a =>
+			a.addEventListener("click", () => {
+				mobileMenu.style.display = "none";
+				burger?.setAttribute("aria-expanded", "false");
+			})
+		);
+
+		/* ============================
+		   Cart (localStorage) — identique Prestations
+		   ============================ */
+		const CART_KEY = "ll_cart";
+		const CART_WNAME_KEY = "__LL_CART__";
+		function readCart(){
+			try{ return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }catch(e){ return []; }
+		}
+		function writeCart(items){
+			try{ localStorage.setItem(CART_KEY, JSON.stringify(items)); }catch(e){}
+			try{
+				const payload = { k: CART_WNAME_KEY, t: Date.now(), items };
+				window.name = JSON.stringify(payload);
+			}catch(e){}
+		}
+		(function restoreCartFromWindowName(){
+			try{
+				const payload = JSON.parse(window.name || "{}");
+				if (payload && payload.k === CART_WNAME_KEY && Array.isArray(payload.items)){
+					localStorage.setItem(CART_KEY, JSON.stringify(payload.items));
+				}
+			}catch(e){}
+		})();
+		(function restoreCartFromUrl(){
+			try{
+				const params = new URLSearchParams(window.location.search || "");
+				const cart = params.get("cart");
+				if (!cart) return;
+				const decoded = decodeURIComponent(escape(atob(decodeURIComponent(cart))));
+				const items = JSON.parse(decoded);
+				if (Array.isArray(items)) localStorage.setItem(CART_KEY, JSON.stringify(items));
+				params.delete("cart");
+				const newQs = params.toString();
+				const clean = window.location.pathname + (newQs ? ("?" + newQs) : "") + window.location.hash;
+				window.history.replaceState({}, "", clean);
+			}catch(e){}
+		})();
+
+		function euro(n){ return (Math.round(n * 100) / 100).toFixed(0) + "€"; }
+
+		function cartCount(){
+			return readCart().reduce((s,i)=>s + (i?.qty || 0), 0);
+		}
+		function cartTotal(){
+			return readCart().reduce((s,i)=>s + (i?.price || 0) * (i?.qty || 0), 0);
+		}
+		function renderCartBadge(){
+			const badge = document.getElementById("cartBadge");
+			if (badge) badge.textContent = String(cartCount());
+		}
+		function renderCart(){
+			renderCartBadge();
+			const wrap = document.getElementById("cartItems");
+			if (!wrap) return;
+			const items = readCart();
+			wrap.innerHTML = items.length ? "" : `<div style="color:rgba(111,98,88,.82); line-height:1.7">Votre panier est vide.</div>`;
+			for (const it of items){
+				const row = document.createElement("div");
+				row.className = "item";
+				row.innerHTML = `
+					<div>
+						<div class="itemTitle">${it.name}</div>
+						<div class="qtyRow">
+							<button class="qtyBtn" type="button" aria-label="Retirer" data-id="${it.id}" data-delta="-1">–</button>
+							<div class="qty">${it.qty || 1}</div>
+						</div>
+					</div>
+					<div class="itemPrice">${euro((it.price || 0) * (it.qty || 1))}</div>
+				`;
+				wrap.appendChild(row);
+			}
+			wrap.querySelectorAll(".qtyBtn").forEach(btn => {
+				btn.addEventListener("click", () => {
+					const id = btn.getAttribute("data-id");
+					const delta = Number(btn.getAttribute("data-delta") || 0);
+					changeQty(id, delta);
+				});
+			});
+			const totalEl = document.getElementById("cartTotal");
+			if (totalEl) totalEl.textContent = euro(cartTotal());
+		}
+		function changeQty(id, delta){
+			const items = readCart();
+			const it = items.find(i => i && i.id === id);
+			if (!it) return;
+			// Limite : 1 article max par prestation
+			it.qty = Math.min(1, Math.max(0, (it.qty || 1) + delta));
+			writeCart(items.filter(i => (i?.qty || 0) > 0));
+			renderCart();
+			renderCartBadge();
+		}
+
+		function openCart(){
+			renderCart();
+			document.getElementById("overlay")?.classList.add("show");
+			document.getElementById("drawer")?.classList.add("show");
+			document.getElementById("overlay")?.setAttribute("aria-hidden", "false");
+			document.getElementById("drawer")?.setAttribute("aria-hidden", "false");
+			setTimeout(() => document.querySelector("#drawer .close")?.focus(), 0);
+		}
+		function closeCart(){
+			document.getElementById("overlay")?.classList.remove("show");
+			document.getElementById("drawer")?.classList.remove("show");
+			document.getElementById("overlay")?.setAttribute("aria-hidden", "true");
+			document.getElementById("drawer")?.setAttribute("aria-hidden", "true");
+		}
+		window.openCart = openCart;
+		window.closeCart = closeCart;
+
+		/* ============================
+		   Produit (formation)
+		   ============================ */
+		const TRAINING = {
+			id: "formation-madero",
+			name: "Formation — Madérothérapie",
+			price: 149,
+			type: "training",
+		};
+
+		function addToCartTraining(){
+			const items = readCart();
+			const existing = items.find(i => i && i.id === TRAINING.id);
+			if (existing){
+				alert("Déjà ajouté au panier.");
+				return;
+			}
+			items.push({ id: TRAINING.id, name: TRAINING.name, price: TRAINING.price, qty: 1, addedAt: new Date().toISOString() });
+			writeCart(items);
+			renderCartBadge();
+			openCart();
+		}
+		window.addToCartTraining = addToCartTraining;
+
+		function checkout(){
+			openCart();
+			if (cartCount() === 0){ alert("Votre panier est vide."); return; }
+			alert("Commande simulée — merci ! (branche Stripe ensuite)");
+		}
+		window.checkout = checkout;
+
+		function goHomeWithCart(e){
+			try{
+				const items = readCart();
+				const cartParam = encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(items)))));
+				const url = "accueil.html?cart=" + cartParam;
+				e?.preventDefault?.();
+				window.location.href = url;
+				return false;
+			}catch(err){}
+			return true;
+		}
+		window.goHomeWithCart = goHomeWithCart;
+
+		function goContactWithCart(e){
+			try{
+				const items = readCart();
+				const cartParam = encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(items)))));
+				const url = "contact.html?cart=" + cartParam;
+				e?.preventDefault?.();
+				window.location.href = url;
+				return false;
+			}catch(err){}
+			return true;
+		}
+		window.goContactWithCart = goContactWithCart;
+
+		function goPrestationsWithCart(e){
+			try{
+				const items = readCart();
+				const cartParam = encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(items)))));
+				const url = "prestations.html?cart=" + cartParam;
+				e?.preventDefault?.();
+				window.location.href = url;
+				return false;
+			}catch(err){}
+			return true;
+		}
+		window.goPrestationsWithCart = goPrestationsWithCart;
+
+		/* ============================
+		   Sync links globally (cart-aware navigation)
+		   ============================ */
+		const CART_PAGES = [
+			"accueil.html",
+			"prestations.html",
+			"contact.html",
+			// Prestations (pages formation) — noms de fichiers réels
+			"La Loge de Léontine — drainage-lymphatique-corps.html (formation).html",
+			"La Loge de Léontine — drainage-lymphatique-visage.html (formation).html",
+			"La Loge de Léontine — head-spa.html (formation).html",
+			"La Loge de Léontine — maderotherapie.html (formation).html",
+			"La Loge de Léontine — massage-bebe.html (formation).html",
+			"La Loge de Léontine — massage-pierres-chaudes.html (formation).html",
+			"La Loge de Léontine — rituel-future-maman.html (formation).html",
+			// Légales
+			"cgv.html",
+			"confidentialite.html",
+			"mentions-legales.html"
+		];
+
+		(function syncCartLinksGlobally(){
+			function cartHrefFor(path){
+				try{
+					const items = readCart();
+					const cartParam = encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(items)))));
+					return path + "?cart=" + cartParam;
+				}catch(e){
+					return path;
+				}
+			}
+
+			function normalizeHref(href){
+				if (!href) return null;
+				const h = String(href).trim();
+				if (!h || h.startsWith("#") || h.startsWith("mailto:") || h.startsWith("tel:") || h.startsWith("javascript:")) return null;
+				return h;
+			}
+
+			function hrefBasename(h){
+				try{
+					const u = new URL(h, window.location.href);
+					return (u.pathname.split("/").pop() || "").trim();
+				}catch(e){
+					return (h.split("?")[0].split("#")[0].split("/").pop() || "").trim();
+				}
+			}
+
+			function wireLink(a){
+				const raw = normalizeHref(a.getAttribute("href"));
+				if (!raw) return;
+				const base = hrefBasename(raw);
+				if (!base) return;
+				if (!CART_PAGES.includes(base)) return;
+				a.addEventListener("click", (e) => {
+					e.preventDefault();
+					window.location.href = cartHrefFor(base);
+				});
+			}
+
+			document.querySelectorAll('a[href]').forEach(wireLink);
+		})();
+
+		/* Reveal */
+		function revealNow(){
+			const els = Array.from(document.querySelectorAll(".reveal"));
+			const io = new IntersectionObserver(
+				(entries) => {
+					for (const e of entries){
+						if (e.isIntersecting){
+							e.target.classList.add("is-visible");
+							io.unobserve(e.target);
+						}
+					}
+				},
+				{ threshold: 0.12 }
+			);
+			els.forEach(el => { if (!el.classList.contains("is-visible")) io.observe(el); });
+		}
+
+		// Init
+		renderCartBadge();
+		revealNow();
+		window.addEventListener("pagehide", () => writeCart(readCart()));
+	</script>
+</body>
+</html>
